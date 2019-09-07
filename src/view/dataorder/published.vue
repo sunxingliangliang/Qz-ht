@@ -58,10 +58,10 @@
         </el-table-column>
         <el-table-column label="客户类型">
           <template slot-scope="scope">
-            <span v-if="scope.row.proxy_type===1">大客户</span>
-            <span v-if="scope.row.proxy_type===2">省级代理商</span>
-            <span v-if="scope.row.proxy_type===3">市级代理商</span>
-            <span v-if="scope.row.proxy_type===4">一般代理商</span>
+            <span v-if="scope.row.proxy_type===1">省级代理商</span>
+            <span v-if="scope.row.proxy_type===2">市级代理商</span>
+            <span v-if="scope.row.proxy_type===3">一般代理商</span>
+            <span v-if="scope.row.proxy_type===4">大客户</span>
           </template>
         </el-table-column>
         <el-table-column prop="ddqy" label="代理区域"></el-table-column>
