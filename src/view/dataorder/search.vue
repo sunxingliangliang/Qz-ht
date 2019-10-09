@@ -33,10 +33,10 @@
       <el-table-column prop="merchant" label="客户名称"></el-table-column>
       <el-table-column label="客户类型">
         <template slot-scope="scope">
-          <span v-if="scope.row.merchantType===1">省级运营中心</span>
-          <span v-if="scope.row.merchantType===2">市级运营中心</span>
-          <span v-if="scope.row.merchantType===3">市级一般代理商</span>
-          <span v-if="scope.row.merchantType===4">大客户</span>
+          <span v-if="scope.row.merchantType===1">大客户</span>
+          <span v-if="scope.row.merchantType===2">省级代理</span>
+          <span v-if="scope.row.merchantType===3">市级代理</span>
+          <span v-if="scope.row.merchantType===4">一般代理商</span>
         </template>
       </el-table-column>
       <el-table-column prop="proxyArea" label="区域"></el-table-column>
@@ -112,8 +112,9 @@
       @click="shenhe"
     >审核</el-button>
     <!-- <el-button plain @click="exportmac" v-if="name==='dcry'||name==='admin'">导出MAC</el-button> -->
-    <a class="export" :href="href" @click="exportmac" v-if="code===1005||code===1001">导出MAC</a>
-    <a class="export" :href="href1" @click="exportimei" v-if="code===1005||code===1001">导出IMEI</a>
+    <a class="export" :href="href" @click="exportmac"  v-if="code===1005||code===1001">导出IMEI</a>
+    <!-- <span @click="exportmac">1234</span> -->
+    <a class="export" :href="href1" @click="exportimei" v-if="code===1005||code===1001">导出MAC</a>
     <!-- <el-button plain v-if="name==='dcry'||name==='admin'">导出IMEI</el-button> -->
     <el-button plain @click="release" v-if="code===1005||code===1001&&this.status===5">发布</el-button>
     <!-- 发布 -->
@@ -145,6 +146,8 @@
 
 <script>
 import sx from '../components/sxbtn'
+import axios from   'axios'
+import utils from '../../assets/js/utils.js'
 export default {
   components: {
     sx
@@ -230,11 +233,28 @@ export default {
       })
     },
     exportmac () {
-      this.href = `http://47.105.207.228:8875/modules/order/export/csv?orderId=${this.id}&type=1`
-      console.log(this.href)
+      let time = new Date().getTime()
+      let params={
+        timestamp:time,
+        orderId:this.id,
+        type:1,
+      }
+      let str =  utils(params)
+      let token = window.sessionStorage.getItem('token')
+      console.log(str)
+      this.href = `http://47.105.207.228:8875/modules/order/export/csv?orderId=${this.id}&timestamp=${time}&type=1&sign=${str}&token=${token}`
     },
     exportimei () {
-      this.href1 = `http://47.105.207.228:8875/modules/order/export/csv?orderId=${this.id}&type=2`
+      let time = new Date().getTime()
+      let params={
+        timestamp:time,
+        orderId:this.id,
+        type:2,
+      }
+      let str =  utils(params)
+      let token = window.sessionStorage.getItem('token')
+      console.log(str)
+      this.href1 = `http://47.105.207.228:8875/modules/order/export/csv?orderId=${this.id}&timestamp=${time}&type=2&sign=${str}&token=${token}`
     },
     // next () {
     //   if (this.active++ > 2) this.active = 0;

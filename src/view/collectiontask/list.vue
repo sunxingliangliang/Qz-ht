@@ -184,6 +184,7 @@ export default {
           page: this.pages,
           // taskStatus:0
         }
+        //this.zs = data.total
       }).then(res => {
         var { code, data } = res.data
         if (code === 1000) {

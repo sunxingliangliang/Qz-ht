@@ -43,7 +43,8 @@
             <el-input type="textarea" v-model="formLabelAlign.region"></el-input>
           </el-form-item>
           <el-form-item label="上传固件">
-            <el-upload
+            <el-input v-model="formLabelAlign.url"></el-input>
+            <!-- <el-upload
               class="upload-demo"
               ref="upload"
               :action="action"
@@ -52,8 +53,12 @@
               :on-change="handleChange"
             >
               <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
-            </el-upload>
+            </el-upload> -->
           </el-form-item>
+          <el-form-item label="校验">
+            <el-input v-model="formLabelAlign.checnsum"></el-input>
+          </el-form-item>
+
         </el-form>
         <span slot="footer" class="dialog-footer">
           <el-button @click="dialogVisible = false">取 消</el-button>
@@ -224,7 +229,9 @@ export default {
       let info = {
         'version': this.formLabelAlign.name,
         'remarks': this.formLabelAlign.region,
-        'url': '123'
+        'url': this.formLabelAlign.url   ,
+        'checnsum': this.formLabelAlign.checnsum,
+        // 'url': '123'
       }
       this.$http.post(this.action, info).then(res => {
         var { code, data } = res.data

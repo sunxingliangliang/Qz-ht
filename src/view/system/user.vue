@@ -422,9 +422,11 @@ export default {
         this.$message.error('邮箱不能为空');
       } else if (/[\u4E00-\u9FA5]/g.test(info.username)) {
         this.$message.error('用户名输入有误');
-      } else if (/^[1][3,4,5,7,8][0-9]{9}$/.test(info.phone)) {
-        this.$message.error('手机号输入有误');
-      } else {
+      } 
+      // else if (/^[1][3,4,5,7,8][0-9]{9}$/.test(info.phone)) {
+      //   this.$message.error('手机号输入有误');
+      // } 
+      else {
         this.$http.post(`sys/user`, info).then(res => {
           var { code, data } = res.data
           if (code === 1000) {

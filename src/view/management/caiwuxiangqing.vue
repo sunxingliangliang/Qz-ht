@@ -3,15 +3,21 @@
     <sx></sx>
     <el-row style="text-align: left;">
       <el-col :span="4" style="margin-left: 20px;">客户信息:{{name}}</el-col>
-      <el-col :span="4" style="margin-left: 20px;">客户类型:{{proxy_type}}</el-col>
+      <el-col :span="4" style="margin-left: 20px;">客户类型:
+          <span v-if="proxy_type===1">省级运营中心</span>
+          <span v-if="proxy_type===2">市级运营中心</span>
+          <span v-if="proxy_type===3">市级一般代理商</span>
+          <span v-if="proxy_type===4">大客户</span>
+          <span v-if="proxy_type===5">清竹数据</span>
+        </el-col>
       <el-col :span="4" style="margin-left: 20px;">区域:{{province}}\{{city}}</el-col>
     </el-row>
     <el-row style="text-align: left;margin-top:30px;margin-bottom:20px;">
-      <el-col :span="4" style="margin-left: 20px;">账户余额(VKT):{{vkt_amount}}</el-col>
-      <el-col :span="4" style="margin-left: 20px;">账户余额(CNY):{{cny_amount}}</el-col>
+      <el-col :span="4" style="margin-left: 20px;">账户余额(VKT):{{vktAmount}}</el-col>
+      <el-col :span="4" style="margin-left: 20px;">账户余额(CNY):{{cnyAmount}}</el-col>
     </el-row>
     <!-- 数据统计 -->
-    <el-row :class="$style.f_row">
+    <!-- <el-row :class="$style.f_row">
       <el-col :span="3" :style="$style.f_da">
         <el-card shadow="hover">
           <span :class="$style.f_sl">2000</span>
@@ -42,9 +48,9 @@
           <p>自充值</p>
         </el-card>
       </el-col>
-    </el-row>
+    </el-row> -->
     <!-- 搜索 -->
-    <div :class="$style.f_search">
+    <!-- <div :class="$style.f_search">
       <div class="block" :class="$style.date">
         <el-date-picker
           v-model="value1"
@@ -64,7 +70,7 @@
         ></el-option>
       </el-select>
       <el-button type="primary" size="medium" @click="search" icon="el-icon-search">搜索</el-button>
-    </div>
+    </div> -->
     <!-- 表格 -->
     <div>
       <el-table :data="tableData" border style="width: 100%">
@@ -204,47 +210,58 @@ export default {
     }
   },
   mounted () {
-    this.num = 6
-    this.id = this.$route.query.id
-    this.getCustomer()
+    this.name = this.$route.query.name
+    this.province = this.$route.query.province
+    this.city = this.$route.query.city
+    this.proxy_type = this.$route.query.proxy_type
+    this.vktAmount = this.$route.query.vktAmount
+    this.cnyAmount = this.$route.query.cnyAmount
+    console.log(this.id)
+    // this.getCustomer()
+    this.getList()
   },
   methods: {
-    getCustomer () {
-      this.$http.get(`modules/financeAfter/customerListByid?id=${this.id}`).then(res => {
-        var { code, data } = res.data
-        if (code === 1000) {
-          this.name = data[0].name
-          if (data[0].proxy_type === 1) {
-            this.proxy_type = "省级运营中心"
-          } else if (data[0].proxy_type === 2) {
-            this.proxy_type = '市级运营中心'
-          } else if (data[0].proxy_type === 3) {
-            this.proxy_type = '市级一般代理商'
-          } else if (data[0].proxy_type === 4) {
-            this.proxy_type = '大客户'
-          } else if (data[0].proxy_type === 5) {
-            this.proxy_type = '清竹数据'
-          }
-          this.province = data[0].province
-          this.city = data[0].city
-          this.vkt_amount = data[0].vkt_amount
-          this.cny_amount = data[0].cny_amount
-          this.ids = data[0].id
-          this.getList(data)
-        } else if (code == 2001) {
-          this.$message.error(res.data.message);
-          window.sessionStorage.clear();
-          window.localStorage.clear();
-          this.$router.push('/')
-        } else {
-          this.$message.error(res.data.message);
-        }
-      }).catch((err) => {
-        console.log('错误信息' + err)
-      })
-    },
-    getList (data) {
-      this.$http.get(`modules/financeAfter/TrRecordList?id=${this.ids}`).then(res => {
+      // getCustomer () {
+      //   this.$http.get(`modules/financeAfter/customerListByid`,{params:{
+      //     name:this.name
+      //   }}).then(res => {
+      //     var { code, data } = res.data
+      //     if (code === 1000) {
+      //       // this.name = data[0].name
+      //       // if (data[0].proxy_type === 1) {
+      //       //   this.proxy_type = "省级运营中心"
+      //       // } else if (data[0].proxy_type === 2) {
+      //       //   this.proxy_type = '市级运营中心'
+      //       // } else if (data[0].proxy_type === 3) {
+      //       //   this.proxy_type = '市级一般代理商'
+      //       // } else if (data[0].proxy_type === 4) {
+      //       //   this.proxy_type = '大客户'
+      //       // } else if (data[0].proxy_type === 5) {
+      //       //   this.proxy_type = '清竹数据'
+      //       // }
+      //       // this.province = data[0].province
+      //       // this.city = data[0].city
+      //       // this.vkt_amount = data[0].vkt_amount
+      //       // this.cny_amount = data[0].cny_amount
+      //       // this.ids = data[0].id
+      //       // this.getList(data)
+      //     } else if (code == 2001) {
+      //       this.$message.error(res.data.message);
+      //       window.sessionStorage.clear();
+      //       window.localStorage.clear();
+      //       this.$router.push('/')
+      //     } else {
+      //       this.$message.error(res.data.message);
+      //     }
+      //   }).catch((err) => {
+      //     console.log('错误信息' + err)
+      //   })
+      // },
+    getList () {
+      this.$http.get(`modules/financeAfter/customerListByName`,{params:{
+        name:this.name,
+        type:9
+      }}).then(res => {
         var { code, data } = res.data
         if (code === 1000) {
           this.tableData = data
@@ -261,7 +278,11 @@ export default {
       })
     },
     search () {
-      this.$http.get(`modules/financeAfter/TrRecordList?toDate=${this.value1[0]}&fromDate=${this.value1[1]}&type=${this.value2}`).then(res => {
+      this.$http.get(`modules/financeAfter/TrRecordList`,{params:{
+        toDate:this.value1[0],
+        FormData:this.value[1],
+        type:this.value2
+      }}).then(res => {
         var { code, data } = res.data
         if (code === 1000) {
           this.tableData = data

@@ -3,49 +3,49 @@
     <sx></sx>
     <!-- 数据统计 -->
     <el-row :class="$style.f_row">
-      <el-col :span="2" :class="$style.f_da">
+      <el-col :span="3" :class="$style.f_da">
         <el-card shadow="hover">
-          <span :class="$style.f_sl">{{totalrecharge}}</span>
+          <span :class="$style.f_sl" >{{totalrecharge}}</span>
           <p>VKT总充值</p>
         </el-card>
       </el-col>
-      <el-col :span="2" :class="$style.f_sheng">
+      <el-col :span="3" :class="$style.f_sheng">
         <el-card shadow="hover">
           <span :class="$style.f_sl">{{merchantTo}}</span>
           <p>代理商自充值</p>
         </el-card>
       </el-col>
-      <el-col :span="2" :class="$style.f_sheng">
+      <el-col :span="3" :class="$style.f_sheng">
         <el-card shadow="hover">
           <span :class="$style.f_sl">{{merchantPt}}</span>
           <p>代理商平台充值</p>
         </el-card>
       </el-col>
-      <el-col :span="2" :class="$style.f_sheng">
+      <el-col :span="3" :class="$style.f_sheng">
         <el-card shadow="hover">
           <span :class="$style.f_sl">{{specialTo}}</span>
           <p>大客户自充值</p>
         </el-card>
       </el-col>
-      <el-col :span="2" :class="$style.f_sheng">
+      <el-col :span="3" :class="$style.f_sheng">
         <el-card shadow="hover">
           <span :class="$style.f_sl">{{specialPt}}</span>
           <p>大客户平台充值</p>
         </el-card>
       </el-col>
-      <el-col :span="2" :class="$style.f_sheng">
+      <el-col :span="3" :class="$style.f_sheng">
         <el-card shadow="hover">
           <span :class="$style.f_sl">{{totalCNY}}</span>
           <p>CNY总充值</p>
         </el-card>
       </el-col>
-       <el-col :span="2" :class="$style.f_sheng">
+       <el-col :span="3" :class="$style.f_sheng" style="margin-top:10px;">
         <el-card shadow="hover">
           <span :class="$style.f_sl">{{cnyAmount}}</span>
           <p>VKT总花费</p>
         </el-card>
       </el-col>
-       <el-col :span="2" :class="$style.f_sheng">
+       <el-col :span="3" :class="$style.f_sheng" style="margin-top:10px;">
         <el-card shadow="hover">
           <span :class="$style.f_sl">{{bigCustomersCny}}</span>
           <p>大客户cny充值</p>
@@ -753,6 +753,6 @@ h3 {
 .f_sl {
   margin-top: 0;
   font-family: "MicrosoftYaHei", "微软雅黑";
-  font-size: 23px;
+  font-size: 20px;
 }
 </style>

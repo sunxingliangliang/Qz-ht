@@ -17,8 +17,8 @@
           <el-table-column prop="bamboocny" label="CNY"></el-table-column>
         </el-table-column>
         <el-table-column prop="banboo" label="清竹数据余额(VKT)"></el-table-column> -->
-        <el-table-column prop="bamboovkt" label="青竹平台"></el-table-column>
-          <el-table-column prop="bamboocny" label="青竹数据"></el-table-column>
+        <el-table-column prop="bamboovkt" label="清竹平台"></el-table-column>
+          <el-table-column prop="bamboocny" label="清竹数据"></el-table-column>
       </el-table>
     </div>
     <el-divider content-position="left">充值</el-divider>
@@ -52,19 +52,19 @@
         <el-table-column label="客户收益">
           <el-table-column prop="proxyIncomeVKT" label="数据收益"></el-table-column>
           <el-table-column prop="proxyRewardVKT" label="任务收益"></el-table-column>
-          <el-table-column prop="fuwuFanXian" label="夏季服务返现"></el-table-column>
+          <el-table-column prop="fuwuFanXian" label="下级服务返现"></el-table-column>
         </el-table-column>
       </el-table>
     </div>
-    <el-divider content-position="left">支出</el-divider>
+    <!-- <el-divider content-position="left">支出</el-divider>
     <div>
       <el-table :data="outlay" border style="width: 100%">
         <el-table-column prop="specialByPay"  label="大客户购买数据"></el-table-column>
         <el-table-column prop="proxyByPay"  label="代理商购买数据"></el-table-column>
-        <el-table-column prop="qingzhuPay"  label="青竹回购数据"></el-table-column>
+        <el-table-column prop="qingzhuPay"  label="清竹回购数据"></el-table-column>
         <el-table-column prop="specialFanXian"  label="大客户返现vkt"></el-table-column>
       </el-table>
-    </div>
+    </div> -->
     <!-- <el-divider content-position="left">提现</el-divider>
     <div>
       <el-table :data="cashOut" border style="width: 100%">
@@ -115,32 +115,6 @@ export default {
             bamboovkt:data.qingZhuVktBalance,
             bamboocny:data.qzDataVktBalance,
           }
-          // let recharge={
-          //   total:data.recharge.totalVKT,
-          //   merchantTo:data.recharge.merchantTo,
-          //   merchantPt:data.recharge.merchantPt,
-          //   specialTo:data.recharge.specialTo,
-          //   specialPt:data.recharge.specialPt,
-          //   totalCNY:data.recharge.totalCNY
-          // }
-          // let earnings ={
-          //   collectProeVkt:data.income.collectProeVkt,
-          //   incomeVkt:data.income.incomeVkt,
-          //   ipfs:data.income.ipfs,
-          //   fixedVkt:data.income.fixedVkt,
-          //   personaVkt:data.income.personaVkt,
-          //   dataVkt:data.income.dataVkt,
-          //   qzDataIncomeVKT:data.income.qzDataIncomeVKT,
-          //   qzrewardVKT:data.income.qzrewardVKT,
-          //   proxyIncomeVKT:data.income.proxyIncomeVKT,
-          //   proxyRewardVKT:data.income.proxyRewardVKT,
-          // }
-          // let withdraw ={
-          //   proxyTxVKT:data.cashOut.proxyTxVKT,
-          //   proxyTxCNY:data.cashOut.proxyTxCNY,
-          //   specialTxVKT:data.cashOut.specialTxVKT,
-          //   specialTxCNY:data.cashOut.specialTxCNY,
-          // }
           this.Totalbalance.push(balance)
           // this.recharge.push(recharge)
           // this.income.push(earnings)
@@ -224,7 +198,7 @@ export default {
             rewardVKT:data.rewardVKT,//任务收益
             proxyIncomeVKT:data.proxyIncomeVKT,//数据收益
             proxyRewardVKT:data.proxyRewardVKT,//任务收益
-            fuwuFanXian:data.fuwuFanXian,//夏季服务返现
+            fuwuFanXian:data.fuwuFanXian,//下级服务返现
           }
           // let withdraw ={
           //   proxyTxVKT:data.cashOut.proxyTxVKT,

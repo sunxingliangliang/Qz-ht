@@ -125,11 +125,7 @@
     >
       <div>
         <baidu-map :class="$style.map" :center="center" :zoom="18">
-          <bm-marker
-            :position="center"
-            :dragging="true"
-            animation="BMAP_ANIMATION_BOUNCE"
-          >
+          <bm-marker :position="center" :dragging="true" animation="BMAP_ANIMATION_BOUNCE">
             <bm-info-window
               :show="show"
               @close="infoWindowClose"
@@ -225,7 +221,7 @@ export default {
       formatted_address: '',
       Grouping: {},
       show: true,
-      addressname:'',
+      addressname: '',
       center: {},
     }
   },
@@ -253,40 +249,81 @@ export default {
             }
             let lng = item.lng
             let lat = item.lat
-            this.$jsonp(`http://api.map.baidu.com/geocoder/v2/?ak=1IGwblSXzAV0yxzCq0ZGdYoixoreCQwS&callback=renderReverse&location=${lat},${lng}&output=json&pois=1 `).then(res => {
-              // console.log(res.result)
-              this.formatted_address = res.result.formatted_address
-              this.Grouping = {
-                city: item.city,
-                code: item.code,
-                dataCount: item.dataCount,
-                fixedCode:item.fixedCode,
-                fixedName:item.fixedName,
-                fixedStatus:item.fixedStatus,
-                formatted_address:this.formatted_address,
-                groupName:item.groupName,
-                id:item.id,
-                isNet:item.isNet,
-                isTaskRange:item.isTaskRange,
-                isTaskTime:item.isTaskTime,
-                lat:item.lat,
-                lng:item.lng,
-                mac_num:item.mac_num,
-                merchantId:item.merchantId,
-                merchantName:item.merchantName,
-                province:item.province,
-                proxy_type:item.proxy_type,
-                status:item.status,
-                suoshu: item.suoshu,
-                taskCode:item.taskCode,
-                taskName:item.taskName,
-              }
-          this.tableData.push(this.Grouping)
-            }).catch((err) => {
-              console.log('错误信息' + err)
-            })
+            if(lng!==null){
+              this.$jsonp(`http://api.map.baidu.com/geoconv/v1/?coords=${lng},${lat}&from=1&to=5&ak=1IGwblSXzAV0yxzCq0ZGdYoixoreCQwS`).then(res => {
+                console.log(res.result[0])
+                let reslat = res.result[0].y
+                let reslng = res.result[0].x
+                this.$jsonp(`http://api.map.baidu.com/geocoder/v2/?ak=1IGwblSXzAV0yxzCq0ZGdYoixoreCQwS&callback=renderReverse&location=${reslat},${reslng}&output=json&pois=1 `).then(res => {
+                  // console.log(res.result)
+                  this.formatted_address = res.result.formatted_address
+                  this.Grouping = {
+                    city: item.city,
+                    code: item.code,
+                    dataCount: item.dataCount,
+                    fixedCode: item.fixedCode,
+                    fixedName: item.fixedName,
+                    fixedStatus: item.fixedStatus,
+                    formatted_address: this.formatted_address,
+                    groupName: item.groupName,
+                    id: item.id,
+                    isNet: item.isNet,
+                    isTaskRange: item.isTaskRange,
+                    isTaskTime: item.isTaskTime,
+                    lat:reslat,
+                    lng: reslng,
+                    mac_num: item.mac_num,
+                    merchantId: item.merchantId,
+                    merchantName: item.merchantName,
+                    province: item.province,
+                    proxy_type: item.proxy_type,
+                    status: item.status,
+                    suoshu: item.suoshu,
+                    taskCode: item.taskCode,
+                    taskName: item.taskName,
+                  }
+                  this.tableData.push(this.Grouping)
+                }).catch((err) => {
+                  console.log('错误信息' + err)
+                })
+              }).catch(err => {
+                console.log('错误信息' + err)
+              })
+            }else{
+             this.$jsonp(`http://api.map.baidu.com/geocoder/v2/?ak=1IGwblSXzAV0yxzCq0ZGdYoixoreCQwS&callback=renderReverse&location=${lng},${lat}&output=json&pois=1 `).then(res => {
+                  // console.log(res.result)
+                  this.formatted_address = res.result.formatted_address
+                  this.Grouping = {
+                    city: item.city,
+                    code: item.code,
+                    dataCount: item.dataCount,
+                    fixedCode: item.fixedCode,
+                    fixedName: item.fixedName,
+                    fixedStatus: item.fixedStatus,
+                    formatted_address: this.formatted_address,
+                    groupName: item.groupName,
+                    id: item.id,
+                    isNet: item.isNet,
+                    isTaskRange: item.isTaskRange,
+                    isTaskTime: item.isTaskTime,
+                    lat: item.lat,
+                    lng: item.lng,
+                    mac_num: item.mac_num,
+                    merchantId: item.merchantId,
+                    merchantName: item.merchantName,
+                    province: item.province,
+                    proxy_type: item.proxy_type,
+                    status: item.status,
+                    suoshu: item.suoshu,
+                    taskCode: item.taskCode,
+                    taskName: item.taskName,
+                  }
+                  this.tableData.push(this.Grouping)
+                }).catch((err) => {
+                  console.log('错误信息' + err)
+                })
+            }
           })
-          console.log(this.tableData)
         } else if (code == 2001) {
           this.$message.error(res.data.message);
           window.sessionStorage.clear();
@@ -458,7 +495,7 @@ export default {
       })
     },
     renwuzb (row) {
-       console.log(row)
+      console.log(row)
       this.center = {
         lat: Number(row.lat),
         lng: Number(row.lng)

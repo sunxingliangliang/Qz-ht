@@ -15,7 +15,7 @@
     <el-table :data="Information" border style="width: 100%">
       <el-table-column prop="code" label="订单编号"></el-table-column>
       <el-table-column prop="name" label="订单名称"></el-table-column>
-      <el-table-column prop="ddtade" label="创建时间"></el-table-column>
+      <el-table-column prop="createTime" label="创建时间"></el-table-column>
       <el-table-column prop="ddzt" label="订单状态"></el-table-column>
     </el-table>
     <!-- 客户信息 -->
@@ -150,6 +150,7 @@ export default {
               let basic = {
                 code: data.code,
                 name: data.name,
+                createTime:data.createTime
               }
               let client = {
                 merchant: data.merchant,

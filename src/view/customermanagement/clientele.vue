@@ -62,6 +62,7 @@
             <span v-if="scope.row.proxy_type===3">市级一般代理商</span>
             <span v-if="scope.row.proxy_type===4">大客户</span>
             <span v-if="scope.row.proxy_type===5">清竹数据</span>
+            <span v-if="scope.row.proxy_type===6">全国代理</span>
           </template>
         </el-table-column>
         <el-table-column property="region" label="区域" sortable></el-table-column>
@@ -75,6 +76,7 @@
               <el-button
               size="mini"
               type="primary"
+              @click="khname(scope.$index, scope.row)"
             >编辑</el-button>
             <el-button
               size="mini"

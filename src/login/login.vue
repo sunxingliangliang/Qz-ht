@@ -93,7 +93,8 @@ export default {
               window.sessionStorage.setItem('info', JSON.stringify(data.user))
               this.$router.push("./index");
             } else if (data.identity.code == 1003) {
-              let arr = ['5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '22', '23', '24', '25', '26', '27', '28', '29', '31', '31', '35', '36', '37']
+              //客服
+              let arr = ['6', '7', '9', '10', '11', '12', '13', '14', '15',  '18', '19', '22', '23', '24', '25', '26', '27', '28', '29', '31', '31', '35', '36', '37']
               let name = username
               let mima = passowrd
               window.sessionStorage.setItem('data', JSON.stringify(arr))
@@ -111,7 +112,7 @@ export default {
               window.sessionStorage.setItem('mima', JSON.stringify(mima))
               this.$router.push("./index");
             } else if (data.identity.code == 1005) {
-              let arr = ['17', '20', '21']
+              let arr = ['17', '20', '21','22','23','24']
               let name = username
               let mima = passowrd
               window.sessionStorage.setItem('data', JSON.stringify(arr))

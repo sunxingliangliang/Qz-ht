@@ -24,7 +24,7 @@
           <el-option v-for="item in xzlx" :key="item.id" :label="item.name" :value="item.id"></el-option>
         </el-select>
       </el-col>
-      <el-col :span="5" v-if="leixing!=4&leixing!=''">
+      <el-col :span="5" v-if="leixing!=4&leixing!=''&leixing!=6">
         <span :class="$style.f_khmc">省:</span>
         <el-select
           v-model="province"
@@ -40,32 +40,27 @@
           ></el-option>
         </el-select>
       </el-col>
-      <el-col :span="5" v-if="leixing!=4&leixing!=''&leixing!=1">
+      <el-col :span="5" v-if="leixing!=4&leixing!=''&leixing!=1&leixing!=6">
         <span :class="$style.f_khmc">市:</span>
         <el-select v-model="city" :class="$style.f_khipt" @change="cityevent" placeholder="请选择">
           <el-option v-for="item in Cityoptions" :key="item.id" :label="item.name" :value="item.id"></el-option>
         </el-select>
       </el-col>
-      <el-col :span="5" v-if="leixing!=4&leixing!=''&leixing!=1">
+      <el-col :span="5" v-if="leixing!=4&leixing!=''&leixing!=1&leixing!=6">
         <span :class="$style.f_khmc">区:</span>
         <el-select v-model="area" :class="$style.f_khipt" placeholder="请选择">
           <el-option v-for="item in Areaoptions" :key="item.id" :label="item.name" :value="item.id"></el-option>
         </el-select>
       </el-col>
     </el-row>
-    <!-- <el-divider content-position="left" v-if="leixing==='选项6'">数据共享</el-divider>
-    <el-row v-if="leixing==='选项6'">
-      <el-col :span="3" style="margin-left:40px">
-        <span style="float:left">是否共享:</span>
-        <el-switch v-model="gongxiang" active-color="#13ce66" inactive-color="#ff4949"></el-switch>
+     <el-row>
+      <el-col :span="7" style="margin-left:38px;margin-top:20px;" v-if="leixing!=4&leixing!=2&leixing!=3&leixing!=6&leixing!=''">
+        <span :class="$style.f_khmc">全国代理:</span>
+        <el-select v-model="value1" :class="$style.f_khipt" placeholder="请选择">
+            <el-option v-for="item in optionsd" :key="item.id" :label="item.name" :value="item.id"></el-option>
+        </el-select>
       </el-col>
     </el-row>
-     <el-row v-if="leixing==='选项6'">
-      <el-col :span="6" style="margin-left:40px;margin-top:20px;">
-         <span :class="$style.f_khmc">数据单价:</span>
-        <el-input placeholder="请输入内容" :class="$style.f_khipt"  v-model="input" clearable></el-input>
-      </el-col>
-    </el-row>-->
     <el-divider content-position="left" v-if="leixing===4">数据价格</el-divider>
     <el-row v-if="leixing===4">
       <el-col :span="6" style="margin-left:40px;margin-top:20px;">
@@ -137,6 +132,7 @@ export default {
       input: '',
       options: [],
       value: '',
+      value1: '',
       textarea2: '',
       gongxiang: false,
       xzlx: [
@@ -155,6 +151,10 @@ export default {
         {
           id: 4,
           name: '大客户'
+        },
+        {
+          id: 6,
+          name: '全国代理'
         }
       ],
       leixing: '',
@@ -177,6 +177,7 @@ export default {
   },
   mounted () {
     this.getFind()
+    this.getFinds()
   },
   methods: {
     getFind () {
@@ -184,6 +185,27 @@ export default {
         var { code, data } = res.data
         if (code === 1000) {
           this.options = data
+        } else if (code == 2001) {
+          this.$message.error(res.data.message);
+          window.sessionStorage.clear();
+          window.localStorage.clear();
+          this.$router.push('/')
+        } else {
+          this.$message.error(res.data.message);
+        }
+      }).catch((err) => {
+        console.log('错误信息' + err)
+      })
+    },
+    getFinds () {
+      this.$http.get(`modules/merchant/findCountry`,{
+          params:{
+          proxyType:6
+        }
+      }).then(res => {
+        var { code, data } = res.data
+        if (code === 1000) {
+          this.optionsd = data
         } else if (code == 2001) {
           this.$message.error(res.data.message);
           window.sessionStorage.clear();
@@ -218,7 +240,7 @@ export default {
             'service': this.value,
             'specialPrice.dataPrice': this.dataPrice,
             'specialPrice.personaPrice': this.personaPrice,
-            'specialPrice.fixedPrice': this.fixedPrice,
+            'specialPrice.fixedPrice': this.fixedPrice
           }
           this.$http.post(`modules/merchant`, info).then(res => {
             var { code, data } = res.data
@@ -251,6 +273,7 @@ export default {
             'service': this.value,
             'province': this.province,
             'city': this.city,
+            'countryId':this.value1
           }
           this.$http.post(`modules/merchant`, info).then(res => {
             var { code, data } = res.data

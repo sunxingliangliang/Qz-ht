@@ -128,10 +128,7 @@ export default {
   data () {
     return {
       data: [
-        {          name: '系统管理', id: '0', child: [
-            // { name: "业务日志", path: '/index/business.vue', id: '1' },
-            // { name: "权限管理", path: '/index/purview.vue', id: '2' },
-            // { name: "角色管理", path: '/index/role.vue', id: '3' },
+            {name: '系统管理', id: '0', child: [
             { name: "用户管理", path: '/index/user.vue', id: '4' }
           ]        },
         {          name: '客户管理', id: '5', child: [

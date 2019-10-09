@@ -43,7 +43,12 @@
     <el-table :data="deviceList" border style="width: 100%">
       <el-table-column prop="code" label="终端编号"></el-table-column>
       <el-table-column prop="groupName" label="分组"></el-table-column>
-      <el-table-column prop="cjsjl" label="工作状态"></el-table-column>
+      <el-table-column prop="cjsjl" label="工作状态">
+        <template slot-scope="scope">
+          <span v-if="scope.row.isTime===1">采集中</span>
+          <span v-if="scope.row.isTime===2">未采集</span>
+        </template>
+      </el-table-column>
       <el-table-column prop="sjsc" label="联网状态">
         <template slot-scope="scope">
           <span v-if="scope.row.isNet===1">是</span>
@@ -253,9 +258,9 @@ export default {
     reject () {
       let info = new FormData()
       info.append('taskId', this.id)
-      info.append('type', 3)
+      info.append('type', 2)
       info.append('remark', this.textarea)
-      this.$http.post(`modules/fixed/verify`, { 'taskId': this.id, 'type': 3, 'remark': this.textarea }).then(res => {
+      this.$http.post(`modules/fixed/verify`, { 'taskId': this.id, 'type': 2, 'remark': this.textarea }).then(res => {
         var { code, data } = res.data
         if (code === 1000) {
           console.log(data)
@@ -291,9 +296,9 @@ export default {
     review () {
       let info = new FormData()
       info.append('taskId', this.id)
-      info.append('type', 2)
+      info.append('type', 3)
       info.append('remark', this.textarea1)
-      this.$http.post(`modules/fixed/verify`, { 'taskId': this.id, 'type': 2, 'remark': this.textarea }).then(res => {
+      this.$http.post(`modules/fixed/verify`, { 'taskId': this.id, 'type': 3, 'remark': this.textarea }).then(res => {
         var { code, data } = res.data
         if (code === 1000) {
           console.log(data)

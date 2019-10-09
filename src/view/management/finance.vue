@@ -254,11 +254,19 @@ export default {
       console.log(row)
       this.obj = {
         title: '客户财务',
-        name: '/index/caiwuxiangqing.vue' + '?id=' + row.trx_id,
-        id: row.id
+        name: '/index/caiwuxiangqing.vue',
+        name: row.name
       }
       this.$store.commit('mypush', this.obj)
-      this.$router.push({ path: '/index/caiwuxiangqing.vue', query: { id: row.trx_id } })
+      this.$router.push({ path: '/index/caiwuxiangqing.vue', query: { 
+          name: row.name,
+          province:row.province,
+          city:row.city,
+          proxy_type:row.proxy_type,
+          vktAmount:row.vktAmount ,
+          cnyAmount:row.cnyAmount ,
+        }
+      })
     },
     handleSizeChange (val) {
       this.sizes = val
