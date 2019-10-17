@@ -1,7 +1,7 @@
 <template>
   <div>
     <sx></sx>
-    <el-input placeholder="请输入姓名" v-model="user" :class="$style.name" clearable></el-input>
+    <el-input placeholder="请输入姓名" v-model="user" :class="$style.name" clearable style="width:20%"></el-input>
     <!-- <el-select v-model="value" clearable placeholder="请输入角色" :class="$style.ip">
       <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
     </el-select>
@@ -31,7 +31,7 @@
             <span v-if="scope.row.status===2">冻结</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="150">
+        <el-table-column label="操作" width="255">
           <template slot-scope="scope">
             <el-button size="mini" @click.stop="handleEdit(scope.$index, scope.row)">编辑</el-button>
             <el-button

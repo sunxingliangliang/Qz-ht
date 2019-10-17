@@ -56,7 +56,7 @@
         </el-table-column>
       </el-table>
     </div>
-    <!-- <el-divider content-position="left">支出</el-divider>
+    <el-divider content-position="left">支出</el-divider>
     <div>
       <el-table :data="outlay" border style="width: 100%">
         <el-table-column prop="specialByPay"  label="大客户购买数据"></el-table-column>
@@ -64,7 +64,7 @@
         <el-table-column prop="qingzhuPay"  label="清竹回购数据"></el-table-column>
         <el-table-column prop="specialFanXian"  label="大客户返现vkt"></el-table-column>
       </el-table>
-    </div> -->
+    </div>
     <!-- <el-divider content-position="left">提现</el-divider>
     <div>
       <el-table :data="cashOut" border style="width: 100%">

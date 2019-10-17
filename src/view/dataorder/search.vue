@@ -111,11 +111,8 @@
       v-if="code===1001||code===1003||code===1002&&this.status===1"
       @click="shenhe"
     >审核</el-button>
-    <!-- <el-button plain @click="exportmac" v-if="name==='dcry'||name==='admin'">导出MAC</el-button> -->
     <a class="export" :href="href" @click="exportmac"  v-if="code===1005||code===1001">导出IMEI</a>
-    <!-- <span @click="exportmac">1234</span> -->
     <a class="export" :href="href1" @click="exportimei" v-if="code===1005||code===1001">导出MAC</a>
-    <!-- <el-button plain v-if="name==='dcry'||name==='admin'">导出IMEI</el-button> -->
     <el-button plain @click="release" v-if="code===1005||code===1001&&this.status===5">发布</el-button>
     <!-- 发布 -->
     <el-dialog title="提示" :visible.sync="emancipate" width="30%" :before-close="handleClose">

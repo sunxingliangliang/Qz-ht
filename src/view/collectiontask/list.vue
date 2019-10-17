@@ -29,7 +29,7 @@
     </div>
     <!-- 筛选 -->
     <div :class="$style.f_sx">
-      <el-input placeholder="请输入搜索内容" v-model="rwname" :class="$style.name" clearable></el-input>
+      <el-input placeholder="请输入搜索内容" v-model="rwname" :class="$style.name" clearable style="width:20%"></el-input>
       <el-select
         v-model="value"
         clearable

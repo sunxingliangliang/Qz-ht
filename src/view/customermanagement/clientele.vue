@@ -34,7 +34,7 @@
         </el-card>
       </el-col>
     </el-row>
-    <el-input placeholder="请输入关键字" v-model="name" :class="$style.name" clearable></el-input>
+    <el-input placeholder="请输入关键字" v-model="name" :class="$style.name" clearable style="width:20%"></el-input>
     <el-select v-model="value" placeholder="请选择" :class="$style.office">
       <el-option v-for="item in options" :key="item.id" :label="item.name" :value="item.id"></el-option>
     </el-select>
