@@ -17,11 +17,11 @@ var uniteaxios = {}
 // })
 
 uniteaxios.install = function (Vue) {
-  // axios.defaults.baseURL='http://192.168.1.74:8888/'  //测试
-  axios.defaults.baseURL='http://47.105.207.228:8875'    //上线
-  // axios.defaults.baseURL='http://e259o74592.zicp.vip:55758/'
-  // axios.defaults.baseURL='http://192.168.1.68:8888/'  
-  // axios.defaults.baseURL='http://192.168.1.18:8888'   
+  // axios.defaults.baseURL='http://47.105.207.228:8875'//上线
+  // axios.defaults.baseURL='http://192.168.1.18:8888' //测试 
+  // axios.defaults.baseURL='http://47.105.207.228:8874'   //正式上线外网
+  axios.defaults.baseURL='http://172.31.156.38:8874'   //正式上线内网
+  
   axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
   Vue.prototype.$http = axios
   /**

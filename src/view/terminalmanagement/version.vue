@@ -84,6 +84,7 @@
 <script>
 import sx from '../components/sxbtn'
 export default {
+  inject:['reload'],
   components: {
     sx
   },
@@ -221,24 +222,24 @@ export default {
       })
     },
     define () {
-      // console.log()
-      // let info = new FormData()
-      // info.append('version', this.formLabelAlign.name)
-      // info.append('remarks', this.formLabelAlign.region)
-      // info.append('url', this.file.raw.type)
       let info = {
         'version': this.formLabelAlign.name,
         'remarks': this.formLabelAlign.region,
-        'url': this.formLabelAlign.url   ,
+        'url': this.formLabelAlign.url,
         'checnsum': this.formLabelAlign.checnsum,
-        // 'url': '123'
       }
       this.$http.post(this.action, info).then(res => {
         var { code, data } = res.data
         if (code === 1000) {
-          this.$refs.upload.submit();
+          this.$message({
+            message:'添加成功',
+            type:'success'
+          })
+          this.reload()
           this.dialogVisible = false
+          this.$refs.upload.submit();
           this.formLabelAlign = {}
+          
         } else if (code == 2001) {
           this.$message.error(res.data.message);
           window.sessionStorage.clear();
