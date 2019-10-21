@@ -12,7 +12,7 @@
     </el-row>   
      <!-- 筛选 -->
     <div :class="$style.f_sx">
-      <el-input placeholder="请输入客户名称" v-model="input" :class="$style.f_sxk" clearable></el-input>
+      <el-input placeholder="请输入客户名称" v-model="input"  clearable style=" width: calc(100% - 85%);float: left;margin-left: 10px;"></el-input>
       <el-select v-model="value" clearable placeholder="请选择" :class="$style.f_sxk">
         <el-option
           v-for="item in options"

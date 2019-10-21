@@ -4,33 +4,33 @@
     <el-divider content-position="left">基本信息</el-divider>
     <el-row>
       <el-col :span="7" style="margin-left:40px">
-        <span :class="$style.f_khmc">客户名称:</span>
-        <el-input placeholder="请输入内容" :class="$style.f_khipt" v-model="name" clearable></el-input>
+        <span style="display: inline-block; float: left; margin-top: 10px;">客户名称:</span>
+        <el-input placeholder="请输入内容" v-model="name" clearable style=" display: inline-block;width: 50%;float: left;margin-left: 10px;"></el-input>
       </el-col>
       <el-col :span="8">
-        <span :class="$style.f_khmc">企业名称:</span>
-        <el-input placeholder="请输入内容" :class="$style.f_khipt" v-model="companyName" clearable></el-input>
+        <span style="display: inline-block; float: left; margin-top: 10px;">企业名称:</span>
+        <el-input placeholder="请输入内容" v-model="companyName" clearable style=" display: inline-block;width: 50%;float: left;margin-left: 10px;"></el-input>
       </el-col>
       <el-col :span="8">
-        <span :class="$style.f_khmc">用户名:</span>
-        <el-input placeholder="请输入内容" @blur="away" :class="$style.f_khipt" v-model="username" clearable></el-input>
+        <span style="display: inline-block; float: left; margin-top: 10px;">用户名:</span>
+        <el-input placeholder="请输入内容" @blur="away" v-model="username" clearable style=" display: inline-block;width: 50%;float: left;margin-left: 10px;"></el-input>
       </el-col>
     </el-row>
     <el-divider content-position="left">客户类型</el-divider>
     <el-row>
       <el-col :span="7" style="margin-left:70px">
-        <span :class="$style.f_khmc">类型:</span>
-        <el-select v-model="leixing" :class="$style.f_khipt" @change="stamp" placeholder="请选择">
+        <span style="display: inline-block; float: left; margin-top: 10px;">类型:</span>
+        <el-select v-model="leixing" @change="stamp" placeholder="请选择" style=" display: inline-block;width: 50%;float: left;margin-left: 10px;">
           <el-option v-for="item in xzlx" :key="item.id" :label="item.name" :value="item.id"></el-option>
         </el-select>
       </el-col>
       <el-col :span="5" v-if="leixing!=4&leixing!=''&leixing!=6">
-        <span :class="$style.f_khmc">省:</span>
+        <span style="display: inline-block; float: left; margin-top: 10px;">省:</span>
         <el-select
           v-model="province"
-          :class="$style.f_khipt"
           @change="provinceevent"
           placeholder="请选择"
+          style=" display: inline-block;width: 50%;float: left;margin-left: 10px;"
         >
           <el-option
             v-for="item in Provinceoptions"
@@ -41,22 +41,22 @@
         </el-select>
       </el-col>
       <el-col :span="5" v-if="leixing!=4&leixing!=''&leixing!=1&leixing!=6">
-        <span :class="$style.f_khmc">市:</span>
-        <el-select v-model="city" :class="$style.f_khipt" @change="cityevent" placeholder="请选择">
+        <span style="display: inline-block; float: left; margin-top: 10px;">市:</span>
+        <el-select v-model="city" @change="cityevent" placeholder="请选择" style=" display: inline-block;width: 50%;float: left;margin-left: 10px;">
           <el-option v-for="item in Cityoptions" :key="item.id" :label="item.name" :value="item.id"></el-option>
         </el-select>
       </el-col>
       <el-col :span="5" v-if="leixing!=4&leixing!=''&leixing!=1&leixing!=6">
-        <span :class="$style.f_khmc">区:</span>
-        <el-select v-model="area" :class="$style.f_khipt" placeholder="请选择">
+        <span style="display: inline-block; float: left; margin-top: 10px;">区:</span>
+        <el-select v-model="area"  placeholder="请选择" style=" display: inline-block;width: 50%;float: left;margin-left: 10px;">
           <el-option v-for="item in Areaoptions" :key="item.id" :label="item.name" :value="item.id"></el-option>
         </el-select>
       </el-col>
     </el-row>
      <el-row>
       <el-col :span="7" style="margin-left:38px;margin-top:20px;" v-if="leixing!=4&leixing!=2&leixing!=3&leixing!=6&leixing!=''">
-        <span :class="$style.f_khmc">全国代理:</span>
-        <el-select v-model="value1" :class="$style.f_khipt" placeholder="请选择">
+        <span style="display: inline-block; float: left; margin-top: 10px;">全国代理:</span>
+        <el-select v-model="value1" style=" display: inline-block;width: 50%;float: left;margin-left: 10px;" placeholder="请选择">
             <el-option v-for="item in optionsd" :key="item.id" :label="item.name" :value="item.id"></el-option>
         </el-select>
       </el-col>
@@ -64,35 +64,35 @@
     <el-divider content-position="left" v-if="leixing===4">数据价格</el-divider>
     <el-row v-if="leixing===4">
       <el-col :span="6" style="margin-left:40px;margin-top:20px;">
-        <span :class="$style.f_khmc">订购数据单价:</span>
-        <el-input placeholder="请输入内容" :class="$style.f_khipt" v-model="dataPrice" clearable></el-input>
+        <span style="display: inline-block; float: left; margin-top: 10px;">订购数据单价:</span>
+        <el-input placeholder="请输入内容" v-model="dataPrice" clearable style=" display: inline-block;width: 50%;float: left;margin-left: 10px;"></el-input>
       </el-col>
       <el-col :span="6" style="margin-left:40px;margin-top:20px;">
-        <span :class="$style.f_khmc">订购画像价格:</span>
-        <el-input placeholder="请输入内容" :class="$style.f_khipt" v-model="personaPrice" clearable></el-input>
+        <span style="display: inline-block; float: left; margin-top: 10px;">订购画像价格:</span>
+        <el-input placeholder="请输入内容" v-model="personaPrice" clearable style=" display: inline-block;width: 50%;float: left;margin-left: 10px;"></el-input>
       </el-col>
       <el-col :span="6" style="margin-left:40px;margin-top:20px;">
-        <span :class="$style.f_khmc">订购固定画像价格:</span>
-        <el-input placeholder="请输入内容" :class="$style.f_khipt" v-model="fixedPrice" clearable></el-input>
+        <span style="display: inline-block; float: left; margin-top: 10px;">订购固定画像价格:</span>
+        <el-input placeholder="请输入内容" v-model="fixedPrice" clearable style=" display: inline-block;width: 50%;float: left;margin-left: 10px;"></el-input>
       </el-col>
     </el-row>
     <el-divider content-position="left">联系方式</el-divider>
     <el-row>
       <el-col :span="5" style="margin-left:48px">
-        <span :class="$style.f_khmc">联系人:</span>
-        <el-input placeholder="请输入内容" :class="$style.f_khipt" v-model="input" clearable></el-input>
+        <span style="display: inline-block; float: left; margin-top: 10px;">联系人:</span>
+        <el-input placeholder="请输入内容"  v-model="input" clearable style=" display: inline-block;width: 50%;float: left;margin-left: 10px;"></el-input>
       </el-col>
       <el-col :span="6">
-        <span :class="$style.f_khmc">联系电话:</span>
-        <el-input placeholder="请输入内容" :class="$style.f_khipt" v-model="phone" clearable></el-input>
+        <span style="display: inline-block; float: left; margin-top: 10px;">联系电话:</span>
+        <el-input placeholder="请输入内容"  v-model="phone" clearable style=" display: inline-block;width: 50%;float: left;margin-left: 10px;"></el-input>
       </el-col>
       <el-col :span="6">
-        <span :class="$style.f_khmc">联系邮箱:</span>
-        <el-input placeholder="请输入内容" type="email" :class="$style.f_khipt" v-model="email" clearable></el-input>
+        <span style="display: inline-block; float: left; margin-top: 10px;">联系邮箱:</span>
+        <el-input placeholder="请输入内容" type="email" v-model="email" clearable style=" display: inline-block;width: 50%;float: left;margin-left: 10px;"></el-input>
       </el-col>
       <el-col :span="6">
-        <span :class="$style.f_khmc">联系地址:</span>
-        <el-input placeholder="请输入内容" :class="$style.f_khipt" v-model="address" clearable></el-input>
+        <span style="display: inline-block; float: left; margin-top: 10px;">联系地址:</span>
+        <el-input placeholder="请输入内容" v-model="address" clearable style=" display: inline-block;width: 50%;float: left;margin-left: 10px;"></el-input>
       </el-col>
     </el-row>
     <el-divider content-position="left">所属客服</el-divider>
@@ -105,9 +105,9 @@
       </el-col>
     </el-row>
     <el-divider content-position="left">备注</el-divider>
-    <el-row>
+    <el-row style="margin-top:10px">
       <el-col :span="24">
-        <span :class="$style.f_bz">备注：</span>
+        <span>备注：</span>
         <el-input
           type="textarea"
           :autosize="{ minRows: 2, maxRows: 4}"
