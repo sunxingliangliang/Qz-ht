@@ -263,10 +263,12 @@ export default {
     search () {
       let fields = 'keyword.fields'
       let value = 'keyword.value'
-      this.$http.get(`sys/user`, {        params: {
-          'keyword.fields': 'name,username',
-          'keyword.value': this.user
-        }      }).then(res => {
+      this.$http.get(`sys/user`, {        
+        params: {
+            'keyword.fields': 'name,username',
+            'keyword.value': this.user
+          }      
+        }).then(res => {
         var { code, data } = res.data
         if (code === 1000) {
           this.tableData = data.content
@@ -451,8 +453,8 @@ export default {
         'username': this.personal.username,
         'name': this.personal.name,
         'roles': this.personal.remark,
-        'email': this.personal.email,
         'phone': this.personal.phone,
+        'email': this.personal.email,
         'userId': this.personal.id
       }
       this.$http.post(`sys/user/editUser`, info).then(res => {

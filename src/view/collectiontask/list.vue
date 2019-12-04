@@ -178,16 +178,24 @@ export default {
   },
   methods: {
     getList () {
+      // console.log(sessionStorage.getItem('infos.id' ))
+      var infos = JSON.parse(sessionStorage.getItem('info'))
+      if(infos.id === 1){
+        infos.id=''
+      }
+      console.log('id',infos.id)
+      console.log('整个数据',infos)
       this.$http.get(`modules/task/taskList`, {
         params: {
           size: this.sizes,
           page: this.pages,
-          // taskStatus:0
+          serviceId:infos.id
         }
         //this.zs = data.total
       }).then(res => {
         var { code, data } = res.data
         if (code === 1000) {
+          // console.log('ss',sessionStorage.getItem( "serviceId"))
           this.tableData = data.content
           this.total = data.total
         } else if (code == 2001) {
@@ -287,11 +295,17 @@ export default {
       console.log(value2)
     },
     handleSizeChange (val) {
+      var infos = JSON.parse(sessionStorage.getItem('info'))
+      if(infos.id === 1){
+        infos.id=''
+      }
       this.sizes = val
       this.$http.get(`modules/task/taskList`, {
         params: {
           size: val,
-          page: this.pages
+          page: this.pages,
+          serviceId:infos.id,
+          taskStatus:this.value,
         }
       }).then(res => {
         var { code, data } = res.data
@@ -311,11 +325,17 @@ export default {
       })
     },
     handleCurrentChange (val) {
+      var infos = JSON.parse(sessionStorage.getItem('info'))
+      if(infos.id === 1){
+        infos.id=''
+      }
       this.pages = val
       this.$http.get(`modules/task/taskList`, {
         params: {
           size: this.sizes,
-          page: val - 1
+          page: val - 1,
+          serviceId:infos.id,
+          taskStatus:this.value,
         }
       }).then(res => {
         var { code, data } = res.data

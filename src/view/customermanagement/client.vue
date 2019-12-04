@@ -26,18 +26,8 @@
       </el-col>
       <el-col :span="5" v-if="leixing!=4&leixing!=''&leixing!=6">
         <span style="display: inline-block; float: left; margin-top: 10px;">省:</span>
-        <el-select
-          v-model="province"
-          @change="provinceevent"
-          placeholder="请选择"
-          style=" display: inline-block;width: 50%;float: left;margin-left: 10px;"
-        >
-          <el-option
-            v-for="item in Provinceoptions"
-            :key="item.id"
-            :label="item.name"
-            :value="item.id"
-          ></el-option>
+        <el-select v-model="province" @change="provinceevent" placeholder="请选择" style=" display: inline-block;width: 50%;float: left;margin-left: 10px;">
+          <el-option v-for="item in Provinceoptions" :key="item.id" :label="item.name" :value="item.id"></el-option>
         </el-select>
       </el-col>
       <el-col :span="5" v-if="leixing!=4&leixing!=''&leixing!=1&leixing!=6">
@@ -53,10 +43,37 @@
         </el-select>
       </el-col>
     </el-row>
-     <el-row>
-      <el-col :span="7" style="margin-left:38px;margin-top:20px;" v-if="leixing!=4&leixing!=2&leixing!=3&leixing!=6&leixing!=''">
-        <span style="display: inline-block; float: left; margin-top: 10px;">全国代理:</span>
-        <el-select v-model="value1" style=" display: inline-block;width: 50%;float: left;margin-left: 10px;" placeholder="请选择">
+    <el-divider content-position="left" v-if="leixing!=1&leixing!=6&leixing!=''">上级客户</el-divider>
+    <el-row>
+      <!-- 市级一般代理的上级客户 -->
+      <el-col :span="7" style="margin-left:38px;display:block" v-if="leixing!=4&leixing!=6&leixing!=''&leixing!=1&leixing!=2">
+        <span style="display: inline-block; float: left; margin-top: 10px;">市级运营中心:</span>
+        <el-select v-model="value2" style=" display: inline-block;width: 50%;float: left;margin-left: 10px;" placeholder="请选择" clearable :disabled="stop5" @change="getshiji">
+            <el-option v-for="item in shijiyunying" :key="item.id" :label="item.name" :value="item.id"></el-option>
+        </el-select>
+      </el-col>
+      <el-col :span="7" style="margin-left:38px" v-if="leixing!=4&leixing!=6&leixing!=''&leixing!=1">
+        <span style="display: inline-block; float: left; margin-top: 10px;display:block;">合资公司:</span>
+        <el-select v-model="value1" clearable style=" display: inline-block;width: 50%;float: left;margin-left: 10px;" placeholder="请选择" :disabled="stop4" @change="getFinds">
+            <el-option v-for="item in optionsd" :key="item.id" :label="item.name" :value="item.id"></el-option>
+        </el-select>
+      </el-col>
+      <!-- 大客户的上级客户 -->
+      <el-col :span="7" style="margin-left:38px;display:block" v-if="leixing!=6&leixing!=''&leixing!=1&leixing!=2&leixing!=3">
+        <span style="display: inline-block; float: left; margin-top: 10px;">市级一般代理商:</span>
+        <el-select v-model="value3" style=" display: inline-block;width: 50%;float: left;margin-left: 10px;" clearable placeholder="请选择" :disabled="stop3" @change="getyiban">
+            <el-option v-for="item in shijiyiban" :key="item.id" :label="item.name" :value="item.id"></el-option>
+        </el-select>
+      </el-col>
+      <el-col :span="7" style="margin-left:10px;display:block" v-if="leixing!=6&leixing!=''&leixing!=1&leixing!=2&leixing!=3">
+        <span style="display: inline-block; float: left; margin-top: 10px;">市级运营中心:</span>
+        <el-select v-model="value2"  style=" display: inline-block;width: 50%;float: left;margin-left: 10px;" clearable placeholder="请选择" :disabled="stop2" @change="getshiji">
+            <el-option v-for="item in shijiyunying" :key="item.id" :label="item.name" :value="item.id"></el-option>
+        </el-select>
+      </el-col>
+      <el-col :span="7" style="margin-left:10px;display:block" v-if="leixing!=6&leixing!=''&leixing!=1&leixing!=2&leixing!=3">
+        <span style="display: inline-block; float: left; margin-top: 10px;">合资公司:</span>
+        <el-select v-model="value1" style=" display: inline-block;width: 50%;float: left;margin-left: 10px;" clearable placeholder="请选择" :disabled="stop1" @change="getFinds">
             <el-option v-for="item in optionsd" :key="item.id" :label="item.name" :value="item.id"></el-option>
         </el-select>
       </el-col>
@@ -76,11 +93,11 @@
         <el-input placeholder="请输入内容" v-model="fixedPrice" clearable style=" display: inline-block;width: 50%;float: left;margin-left: 10px;"></el-input>
       </el-col>
     </el-row>
-    <el-divider content-position="left">联系方式</el-divider>
+     <el-divider content-position="left">联系方式</el-divider>
     <el-row>
       <el-col :span="5" style="margin-left:48px">
         <span style="display: inline-block; float: left; margin-top: 10px;">联系人:</span>
-        <el-input placeholder="请输入内容"  v-model="input" clearable style=" display: inline-block;width: 50%;float: left;margin-left: 10px;"></el-input>
+        <el-input placeholder="请输入内容"  v-model="contact" clearable style=" display: inline-block;width: 50%;float: left;margin-left: 10px;"></el-input>
       </el-col>
       <el-col :span="6">
         <span style="display: inline-block; float: left; margin-top: 10px;">联系电话:</span>
@@ -106,8 +123,8 @@
     </el-row>
     <el-divider content-position="left">备注</el-divider>
     <el-row style="margin-top:10px">
-      <el-col :span="24">
-        <span>备注：</span>
+      <el-col :span="23">
+        <span style="float:left;margin-left:40px;margin-top:15px">备注：</span>
         <el-input
           type="textarea"
           :autosize="{ minRows: 2, maxRows: 4}"
@@ -131,8 +148,19 @@ export default {
     return {
       input: '',
       options: [],
+      optionsd:[],
+      shijiyunying:{},
       value: '',
+      parentId:'',
       value1: '',
+      value2:'',
+      value3:'',
+      stop:false,
+      stop1:false,
+      stop2:false,
+      stop3:false,
+      stop4:false,
+      stop5:false,
       textarea2: '',
       gongxiang: false,
       xzlx: [
@@ -154,7 +182,7 @@ export default {
         },
         {
           id: 6,
-          name: '全国代理'
+          name: '合资公司'
         }
       ],
       leixing: '',
@@ -173,16 +201,20 @@ export default {
       phone: '',
       email: '',
       address: '',
+      contact:''
     }
   },
   mounted () {
     this.getFind()
     this.getFinds()
+    this.getshiji()
+    this.getyiban()
   },
   methods: {
     getFind () {
       this.$http.get(`sys/user/findService`).then(res => {
         var { code, data } = res.data
+        console.log(data)
         if (code === 1000) {
           this.options = data
         } else if (code == 2001) {
@@ -197,15 +229,108 @@ export default {
         console.log('错误信息' + err)
       })
     },
+    //合资公司  2
     getFinds () {
+      if(this.value1 !=""){
+        this.stop2 = true
+        this.stop3 = true
+      }else if(this.value2 != ""){
+        this.stop1 = true
+        this.stop3 = true
+      }else if(this.value3 !=""){
+        this.stop1 = true
+        this.stop2 = true
+      }else if(this.value1 == ""){
+        this.stop1 = false
+        this.stop2 = false
+        this.stop3 = false
+      }
+      if(this.value1 !=""){
+        this.stop5 = true
+      }else if(this.value1 == ""){
+        this.stop4 = false
+        this.stop5 = false
+      }
       this.$http.get(`modules/merchant/findCountry`,{
           params:{
-          proxyType:6
+          proxyType:6,
         }
       }).then(res => {
         var { code, data } = res.data
         if (code === 1000) {
           this.optionsd = data
+        } else if (code == 2001) {
+          this.$message.error(res.data.message);
+          window.sessionStorage.clear();
+          window.localStorage.clear();
+          this.$router.push('/')
+        } else {
+          this.$message.error(res.data.message);
+        }
+      }).catch((err) => {
+        console.log('错误信息' + err)
+      })
+    },
+    //市级运营中心  1
+    getshiji(){
+      if(this.value1 !=""){
+        this.stop2 = true
+        this.stop3 = true
+      }else if(this.value2 != ""){
+        this.stop1 = true
+        this.stop3 = true
+      }else if(this.value3 !=""){
+        this.stop1 = true
+        this.stop2 = true
+      }else if(this.value2 == ""){
+        this.stop1 = false
+        this.stop2 = false
+        this.stop3 = false
+      }
+      if(this.value2 !=""){
+        this.stop4 = true
+      }else if(this.value2 == ""){
+        this.stop4 = false
+        this.stop5 = false
+      }
+      this.$http.get(`modules/merchant/findCountry`,{
+          params:{
+          proxyType:2,
+        }
+      }).then(res => {
+        var { code, data } = res.data
+        if (code === 1000) {
+          this.shijiyunying = data
+        } else if (code == 2001) {
+          this.$message.error(res.data.message);
+          window.sessionStorage.clear();
+          window.localStorage.clear();
+          this.$router.push('/')
+        } else {
+          this.$message.error(res.data.message);
+        }
+      }).catch((err) => {
+        console.log('错误信息' + err)
+      })
+    },
+    //一般
+    getyiban(){
+      if(this.value3 !=""){
+        this.stop1 = true
+        this.stop2 = true
+      }else if(this.value3 == ""){
+        this.stop1 = false
+        this.stop2 = false
+        this.stop3 = false
+      }
+      this.$http.get(`modules/merchant/findCountry`,{
+          params:{
+          proxyType:3,
+        }
+      }).then(res => {
+        var { code, data } = res.data
+        if (code === 1000) {
+          this.shijiyiban = data
         } else if (code == 2001) {
           this.$message.error(res.data.message);
           window.sessionStorage.clear();
@@ -234,13 +359,18 @@ export default {
             'companyName': this.companyName,
             'username': this.username,
             'proxyType': this.leixing,
+            'contact':this.contact,
             'phone': this.phone,
             'email': this.email,
             'address': this.address,
             'service': this.value,
             'specialPrice.dataPrice': this.dataPrice,
             'specialPrice.personaPrice': this.personaPrice,
-            'specialPrice.fixedPrice': this.fixedPrice
+            'specialPrice.fixedPrice': this.fixedPrice,
+            // 'parentId':this.value1,//合资公司
+            // 'parentId':this.value2,//市级运营中心
+            // 'parentId':this.value3,//市级一般代理
+            'parentId':this.value1||this.value2||this.value3
           }
           this.$http.post(`modules/merchant`, info).then(res => {
             var { code, data } = res.data
@@ -267,13 +397,17 @@ export default {
             'companyName': this.companyName,
             'proxyType': this.leixing,
             'username': this.username,
+            'contact':this.contact,
             'phone': this.phone,
             'email': this.email,
             'address': this.address,
             'service': this.value,
             'province': this.province,
             'city': this.city,
-            'countryId':this.value1
+            // 'parentId':this.value1,//合资公司
+            // 'parentId':this.value2,//市级运营中心
+            // 'parentId':this.value3,//市级一般代理
+            'parentId':this.value1||this.value2||this.value3
           }
           this.$http.post(`modules/merchant`, info).then(res => {
             var { code, data } = res.data
@@ -304,11 +438,14 @@ export default {
       }
 
     },
+    //省
     stamp () {
       if (this.leixing != 4) {
-        this.$http.get(`modules/area/areaByPid`, {          params: {
-            pid: 1
-          }        }).then(res => {
+        this.$http.get(`modules/area/areaByPid`, {          
+            params: {
+              pid: 1
+            }        
+          }).then(res => {
           var { code, data } = res.data
           if (code === 1000) {
             this.Provinceoptions = data
@@ -325,10 +462,13 @@ export default {
         })
       }
     },
+    //市
     provinceevent () {
-      this.$http.get(`modules/area/areaByPid`, {        params: {
-          pid: this.province
-        }      }).then(res => {
+      this.$http.get(`modules/area/areaByPid`, {        
+          params: {
+            pid: this.province
+          }      
+        }).then(res => {
         var { code, data } = res.data
         if (code === 1000) {
           this.Cityoptions = data
@@ -344,10 +484,13 @@ export default {
         console.log('错误信息' + err)
       })
     },
+    //区
     cityevent () {
-      this.$http.get(`modules/area/areaByPid`, {        params: {
-          pid: this.city
-        }      }).then(res => {
+      this.$http.get(`modules/area/areaByPid`, {        
+          params: {
+            pid: this.city
+          }      
+        }).then(res => {
         var { code, data } = res.data
         if (code === 1000) {
           this.Areaoptions = data

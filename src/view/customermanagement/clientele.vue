@@ -38,16 +38,12 @@
     <el-select v-model="value" placeholder="请选择" :class="$style.office">
       <el-option v-for="item in options" :key="item.id" :label="item.name" :value="item.id"></el-option>
     </el-select>
-    <!-- <el-input placeholder="请输入企业名称" v-model="ip" :class="$style.ip" clearable></el-input> -->
-    <!-- <div class="block" :class="$style.date">
-      <el-date-picker v-model="value1" type="date" placeholder="请选择创建日期"></el-date-picker>
-    </div>-->
     <el-button type="primary" icon="el-icon-search" @click="search">搜索</el-button>
     <el-button type="primary" @click='client'>客户创建</el-button>
 
     <!-- 表格 -->
     <div :class="$style.table">
-      <el-table ref="singleTable" :data="tableData" highlight-current-row style="width: 100%">
+      <el-table ref="singleTable" :data="tableData" highlight-current-row style="width: 100%" v-loading="loading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading">
         <el-table-column type="index" label="序号" width="150"></el-table-column>
         <el-table-column label="客户名称" sortable>
           <template slot-scope="scope">
@@ -62,7 +58,7 @@
             <span v-if="scope.row.proxy_type===3">市级一般代理商</span>
             <span v-if="scope.row.proxy_type===4">大客户</span>
             <span v-if="scope.row.proxy_type===5">清竹数据</span>
-            <span v-if="scope.row.proxy_type===6">全国代理</span>
+            <span v-if="scope.row.proxy_type===6">合资公司</span>
           </template>
         </el-table-column>
         <el-table-column property="region" label="区域" sortable></el-table-column>
@@ -196,6 +192,85 @@
             </el-form-item>
           </el-col>
         </el-row>
+        <el-divider content-position="left" v-if="formkhfull.proxyType!=5&formkhfull.proxyType!=6&formkhfull.proxyType!=1">上级客户</el-divider>
+        <!-- 市级运营中心的下级 -->
+        <el-row>
+         <el-col :span="12" v-if="formkhfull.proxyType!=4&formkhfull.proxyType!=6&formkhfull.proxyType!=''&formkhfull.proxyType!=1&formkhfull.proxyType!=3&formkhfull.proxyType!=5">
+            <el-form-item label="合资公司:">
+              <div :class="$style.code">
+                <el-select v-model="formkhfull.parentHZ" placeholder="请选择" clearable>
+                  <el-option
+                    v-for="item in hezigongsi"
+                    :key="item.id"
+                    :label="item.name"
+                    :value="item.name"
+                  ></el-option>
+                </el-select>
+              </div>
+            </el-form-item>
+          </el-col>
+          </el-row>
+        <!-- 市级一般代理的上级 -->
+        <el-row>
+          <el-col :span="12" v-if="formkhfull.proxyType!=4&formkhfull.proxyType!=6&formkhfull.proxyType!=''&formkhfull.proxyType!=1&formkhfull.proxyType!=2&formkhfull.proxyType!=5">
+            <el-form-item label="市级运营中心:" >
+              <div :class="$style.code">
+                <el-select v-model="formkhfull.parentSJ" placeholder="请选择" :disabled="stop5" @change="getshiji" clearable>
+                  <el-option v-for="item in shijiyunying" :key="item.id" :label="item.name" :value="item.name"></el-option>
+                </el-select>
+              </div>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12" v-if="formkhfull.proxyType!=4&formkhfull.proxyType!=6&formkhfull.proxyType!=''&formkhfull.proxyType!=1&formkhfull.proxyType!=2&formkhfull.proxyType!=5">
+            <el-form-item label="合资公司:">
+              <div :class="$style.code">
+                <el-select v-model="formkhfull.parentHZ" placeholder="请选择" :disabled="stop4" @change="getFinds" clearable>
+                  <el-option
+                    v-for="item in hezigongsi"
+                    :key="item.id"
+                    :label="item.name"
+                    :value="item.name"
+                  ></el-option>
+                </el-select>
+              </div>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <!-- 大客户的上级 -->
+        <el-row>
+          <el-col :span="12" v-if="formkhfull.proxyType!=6&formkhfull.proxyType!=1&formkhfull.proxyType!=''&formkhfull.proxyType!=2&formkhfull.proxyType!=3&formkhfull.proxyType!=5">
+            <el-form-item label="市级一般代理:" >
+              <div :class="$style.code">
+                <el-select v-model="formkhfull.parentYB" placeholder="请选择" :disabled="stop3" @change="getyiban" clearable>
+                  <el-option v-for="item in shijiyiban" :key="item.id" :label="item.name" :value="item.name"></el-option>
+                </el-select>
+              </div>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12" v-if="formkhfull.proxyType!=6&formkhfull.proxyType!=1&formkhfull.proxyType!=''&formkhfull.proxyType!=2&formkhfull.proxyType!=3&formkhfull.proxyType!=5">
+            <el-form-item label="市级运营中心:" >
+              <div :class="$style.code">
+                <el-select v-model="formkhfull.parentSJ" placeholder="请选择" :disabled="stop2" @change="getshiji" clearable>
+                  <el-option v-for="item in shijiyunying" :key="item.id" :label="item.name" :value="item.name"></el-option>
+                </el-select>
+              </div>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12" v-if="formkhfull.proxyType!=6&formkhfull.proxyType!=1&formkhfull.proxyType!=''&formkhfull.proxyType!=2&formkhfull.proxyType!=3&formkhfull.proxyType!=5">
+            <el-form-item label="合资公司:">
+              <div :class="$style.code">
+                <el-select v-model="formkhfull.parentHZ" placeholder="请选择" :disabled="stop1" @change="getFinds" clearable>
+                  <el-option
+                    v-for="item in hezigongsi"
+                    :key="item.id"
+                    :label="item.name"
+                    :value="item.name"
+                  ></el-option>
+                </el-select>
+              </div>
+            </el-form-item>
+          </el-col>
+        </el-row>
         <el-divider content-position="left" v-if="formkhfull.stamp==='大客户'">数据共享</el-divider>
         <el-row v-if="formkhfull.stamp==='大客户'">
           <el-col :span="8">
@@ -221,14 +296,14 @@
           <el-col :span="12">
             <el-form-item label="联系人:">
               <div :class="$style.code">
-                <el-input v-model="formkhfull.contact" :disabled="jy"></el-input>
+                <el-input v-model="formkhfull.contact"></el-input>
               </div>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="联系电话:">
               <div :class="$style.code">
-                <el-input v-model="formkhfull.phone" :disabled="jy"></el-input>
+                <el-input v-model="formkhfull.phone"></el-input>
               </div>
             </el-form-item>
           </el-col>
@@ -237,24 +312,34 @@
           <el-col :span="12">
             <el-form-item label="联系邮箱:">
               <div :class="$style.code">
-                <el-input v-model="formkhfull.email" :disabled="jy"></el-input>
+                <el-input v-model="formkhfull.email"></el-input>
               </div>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="联系地址:">
               <div :class="$style.code">
-                <el-input v-model="formkhfull.address" :disabled="jy"></el-input>
+                <el-input v-model="formkhfull.address"></el-input>
               </div>
             </el-form-item>
           </el-col>
         </el-row>
-        <el-divider content-position="left">所属客服</el-divider>
-        <el-form-item label="专属客服:">
-          <div :class="$style.code">
-            <el-input v-model="formkhfull.service" :disabled="jy"></el-input>
-          </div>
-        </el-form-item>
+         <el-row>
+          <el-col :span="12">
+            <el-form-item label="专属客服:">
+              <div :class="$style.code">
+                <el-select v-model="formkhfull.service">
+                  <el-option
+                    v-for="item in optionsd"
+                    :key="item.id"
+                    :label="item.name"
+                    :value="item.name"
+                  ></el-option>
+                </el-select>
+              </div>
+            </el-form-item>
+          </el-col>
+        </el-row>
         <el-divider content-position="left">区块链</el-divider>
         <el-form-item label="区块链账号:">
           <div :class="$style.code">
@@ -270,10 +355,11 @@
       </el-form>
       <span>
         <el-button @click="khfull = false">取 消</el-button>
-        <el-button type="primary" @click="khfull = false">确 定</el-button>
+        <el-button type="primary" @click="dialogVisibles">确 定</el-button>
       </span>
     </el-dialog>
   </div>
+  
 </template>
 
 <script>
@@ -285,6 +371,10 @@ export default {
   data () {
     return {
       name: '',
+      optionsd:[],
+      shijiyunying:[],
+      shijiyiban:[],
+      hezigongsi:[],
       options: [
         {
           id: 1,
@@ -327,6 +417,14 @@ export default {
       formkhfull: {},
       gongxiang: false,
       leixing: '',
+      stop1:false,
+      stop2:false,
+      stop3:false,
+      stop4:false,
+      stop5:false,
+
+      // value:'',
+      xiaji:[],
       lx: [
          {
           id: 1,
@@ -347,21 +445,161 @@ export default {
         {
           id: 5,
           name: '清竹数据'
+        },
+        {
+          id:6,
+          name:'合资公司'
         }
       ],
       jy: true,
+      value2:'',
+      value3:'',
+      parentSJ:'',
+      parentHZ:'',
+      parentYB:'',
       sizes: 10,
-      pages: 0
+      pages: 0,
+      loading: true,
+      name:''
     }
   },
   mounted () {
     this.getTotle()
     this.getCount()
+    this.getFind()
+    this.getshiji()
+    this.getFinds()
+    this.getyiban()
   },
   methods: {
     client(){
       this.$router.push({
         path:"client.vue"
+      })
+    },
+    //市级运营中心
+    getshiji(){
+      if(this.formkhfull.parentSJ != null){
+        this.stop1 = true
+        this.stop3 = true
+      }
+      if(this.formkhfull.parentSJ == ""){
+        this.stop4 = false
+        this.stop5 = false
+        this.stop1 = false
+        this.stop2 = false
+        this.stop3 = false
+      }else if(this.formkhfull.parentSJ != null){
+        this.stop4 = true
+      }else{
+        this.stop4 = false
+        this.stop5 = false
+      }
+      this.$http.get(`modules/merchant/findCountry`,{
+          params:{
+          proxyType:2,
+          // 'parentId':this.value2
+        }
+      }).then(res => {
+        var { code, data } = res.data
+        if (code === 1000) {
+          this.shijiyunying = data
+        } else if (code == 2001) {
+          this.$message.error(res.data.message);
+          window.sessionStorage.clear();
+          window.localStorage.clear();
+          this.$router.push('/')
+        } else {
+          this.$message.error(res.data.message);
+        }
+      }).catch((err) => {
+        console.log('错误信息' + err)
+      })
+    },
+    //合资公司
+    getFinds () {
+      if(this.formkhfull.parentHZ != null){
+        this.stop2 = true
+        this.stop3 = true
+      }
+      if(this.formkhfull.parentHZ == ""){
+        this.stop4 = false
+        this.stop5 = false
+        this.stop1 = false
+        this.stop2 = false
+        this.stop3 = false
+      }else if(this.formkhfull.parentHZ != null){
+        this.stop5 = true
+      }else{
+        this.stop4 = false
+        this.stop5 = false
+      }
+      this.$http.get(`modules/merchant/findCountry`,{
+          params:{
+          proxyType:6,
+          // 'parentId':this.value1
+        }
+      }).then(res => {
+        var { code, data } = res.data
+        if (code === 1000) {
+          this.hezigongsi = data
+        } else if (code == 2001) {
+          this.$message.error(res.data.message);
+          window.sessionStorage.clear();
+          window.localStorage.clear();
+          this.$router.push('/')
+        } else {
+          this.$message.error(res.data.message);
+        }
+      }).catch((err) => {
+        console.log('错误信息' + err)
+      })
+    },
+    // 市级一般代理商
+    getyiban(){
+      if(this.formkhfull.parentYB != null){
+        this.stop1 = true
+        this.stop2 = true
+      }else if(this.formkhfull.parentYB == ""){
+        this.stop1 = false
+        this.stop2 = false
+        this.stop3 = false
+        this.stop4 = false
+        this.stop5 = false
+      }
+
+      //多余
+      if(this.formkhfull.parentYB == ""){
+        this.stop4 = false
+        this.stop5 = false
+        this.stop1 = false
+        this.stop2 = false
+        this.stop3 = false
+      }else if(this.formkhfull.parentYB != null){
+        // this.stop5 = true
+      }else{
+        // this.stop4 = false
+        // this.stop5 = false
+      }
+      this.$http.get(`modules/merchant/findCountry`,{
+          params:{
+          proxyType:3,
+          // 'parentId':this.value3
+        }
+      }).then(res => {
+        var { code, data } = res.data
+        if (code === 1000) {
+          this.shijiyiban = data
+        } else if (code == 2001) {
+          this.$message.error(res.data.message);
+          window.sessionStorage.clear();
+          window.localStorage.clear();
+          this.$router.push('/')
+        } else {
+          this.$message.error(res.data.message);
+        }
+      }).catch((err) => {
+        console.log('错误信息' + err)
       })
     },
     getTotle () {
@@ -373,6 +611,8 @@ export default {
       }).then(res => {
         var { code, data } = res.data
         if (code === 1000) {
+          this.loading = false
+          this.tableData = []
           this.tableData = data.content
           this.total = data.total
           this.tableData.forEach(item => {
@@ -384,6 +624,24 @@ export default {
               item.region = item.province + "\\" + item.city
             }
           })
+        } else if (code == 2001) {
+          this.$message.error(res.data.message);
+          window.sessionStorage.clear();
+          window.localStorage.clear();
+          this.$router.push('/')
+        } else {
+          this.$message.error(res.data.message);
+        }
+      }).catch((err) => {
+        console.log('错误信息' + err)
+      })
+    },
+    getFind () {
+      this.$http.get(`sys/user/findService`).then(res => {
+        var { code, data } = res.data
+        if (code === 1000) {
+          this.optionsd = data
+          this.getTotle()
         } else if (code == 2001) {
           this.$message.error(res.data.message);
           window.sessionStorage.clear();
@@ -459,7 +717,8 @@ export default {
       this.$http.get(`modules/merchant/list`, {
         params: {
           size: val,
-          page: this.pages
+          page: this.pages,
+          proxyType: this.value,
         }
       }).then(res => {
         var { code, data } = res.data
@@ -488,15 +747,17 @@ export default {
       })
     },
     handleCurrentChange (val) {
-      this.pages = val
+      this.pages = val - 1
       this.$http.get(`modules/merchant/list`, {
         params: {
           size: this.sizes,
-          page: val - 1
+          page: val - 1,
+          proxyType: this.value,
         }
       }).then(res => {
         var { code, data } = res.data
         if (code === 1000) {
+          this.tableData = []
           this.tableData = data.content
           this.total = data.total
           this.tableData.forEach(item => {
@@ -513,6 +774,37 @@ export default {
           window.sessionStorage.clear();
           window.localStorage.clear();
           this.$router.push('/')
+        } else {
+          this.$message.error(res.data.message);
+        }
+      }).catch((err) => {
+        console.log('错误信息' + err)
+      })
+    },
+    dialogVisibles(){
+      console.log('xiajsssi',this.xiaji.name)
+      console.log('客服',this.formkhfull.service)
+      this.khfull = false
+        let info = {
+          'contact':this.formkhfull.contact,//联系人
+          'phone':this.formkhfull.phone,//联系电话
+          'email':this.formkhfull.email,//联系邮箱
+          'address':this.formkhfull.address,//联系地址
+          'id':this.formkhfull.id,//id
+          'service':this.formkhfull.service,//客服
+          'parentName':this.formkhfull.parentYB||this.formkhfull.parentSJ||this.formkhfull.parentHZ,
+          // 'parentId':this.formkhfull.parentSJ,
+          // 'parentId':this.formkhfull.parentHZ,
+        }
+      this.$http.post(`modules/merchant/update`,info).then(res => {
+        var { code, data } = res.data
+        if (code === 1000) {
+          this.khfull = false
+          this.getTotle()
+          this.$message({
+              message: '修改成功',
+              type: 'success'
+            });
         } else {
           this.$message.error(res.data.message);
         }
@@ -545,41 +837,42 @@ export default {
         console.log('错误信息' + err)
       })
     },
-   handleDelete (index, row) {
-      this.$confirm('确认要重置密码?, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        let info = {
-          'id': row.id
-        }
-        this.$http.post('modules/merchant/resetPassword', info).then(res => {
-          var { code, data } = res.data
-          if (code === 1000) {
-            this.$message({
-              message: '已重制密码',
-              type: 'success'
-            });
-          } else {
-            this.$message.error(res.data.message);
+    handleDelete (index, row) {
+        this.$confirm('确认要重置密码?, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          let info = {
+            'id': row.id
           }
-        }).catch(function (error) {
-          console.log('错误信息' + error)
-        })
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消'
+          this.$http.post('modules/merchant/resetPassword', info).then(res => {
+            var { code, data } = res.data
+            if (code === 1000) {
+              this.$message({
+                message: '已重制密码',
+                type: 'success'
+              });
+            } else {
+              this.$message.error(res.data.message);
+            }
+          }).catch(function (error) {
+            console.log('错误信息' + error)
+          })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消'
+          });
         });
-      });
-    },
+      },
     handleClose () {
       this.full = false
     },
     khname (index, row) {
       console.log(row)
-      this.$http.get(`modules/merchant/${row.id}`).then(res => {
+      this.$http.get(`modules/merchant/${row.id}`,{params:{
+      }}).then(res => {
         console.log(res)
         var { code, data } = res.data
         if (code === 1000) {
@@ -589,11 +882,19 @@ export default {
             this.jy = true
             this.khfull = true
             this.formkhfull = data
+            // this.xiaji = data.findProxyTypeList
+            // console.log('xiaji',this.xiaji.name)
           } else {
             console.log(2)
             this.jy = true
             this.khfull = true
             this.formkhfull = data
+            // this.xiaji = data.findProxyTypeList
+            // let arr = []
+            // for(let i = 0; i<arr.length;i++){
+
+            // }
+            console.log('xiajia',this.xiaji)
              if (this.formkhfull.province === null) {
               this.formkhfull.region = ''
             } else if (this.formkhfull.city === null) {

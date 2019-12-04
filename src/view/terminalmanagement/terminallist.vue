@@ -15,7 +15,7 @@
     </div>
     <!-- 表格 -->
     <div>
-      <el-table :data="tableData" border style="width: 100%">
+      <el-table :data="tableData" border style="width: 100%" v-loading="loading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading">
         <el-table-column type="index" fixed="left" label="序号" width="50"></el-table-column>
         <el-table-column fixed="left" property="code" label="编号"></el-table-column>
         <el-table-column label="绑定状态" fixed="left" property="pinless">
@@ -224,7 +224,8 @@ export default {
       show: true,
       addressname: '',
       center: {},
-      hackReset:true
+      hackReset:true,
+      loading:true
     }
   },
   mounted () {
@@ -232,17 +233,23 @@ export default {
   },
   methods: {
     getList () {
+      var infos = JSON.parse(sessionStorage.getItem('info'))
+      if(infos.id ===1){
+        infos.id =''
+      }
       this.$http.get(`modules/device/adminList`, {
         params: {
           size: this.sizes,
-          page: this.pages
+          page: this.pages,
+          serviceId:infos.id
         }
       }).then(res => {
         var { code, data } = res.data
         if (code === 1000) {
+          this.loading = false
           this.tableData = []
           this.total = data.total
-          data.content.forEach(item => {
+            data.content.forEach(item => {
             if (item.province === null) {
               item.suoshu = ''
             } else if (item.city === null) {
@@ -377,26 +384,107 @@ export default {
       this.dialogVisible = true
     },
     search () {
+      var infos = JSON.parse(sessionStorage.getItem('info'))
+      if(infos.id ===1){
+        infos.id =''
+      }
       this.$http.get(`modules/device/adminList`, {
         params: {
           size: this.sizes,
           search: this.input,
           type: this.value,
           proxy: this.value1,
-          page: this.pages
+          page: this.pages,
+          serviceId:infos.id
         }
       }).then(res => {
         var { code, data } = res.data
         if (code === 1000) {
-          this.tableData = data.content
+          this.tableData = []
           this.total = data.total
-          this.tableData.forEach(item => {
+          data.content.forEach(item => {
             if (item.province === null) {
               item.suoshu = ''
             } else if (item.city === null) {
               item.suoshu = item.province
             } else {
               item.suoshu = item.province + "\\" + item.city
+            }
+            let lng = item.lng
+            let lat = item.lat
+            if(lng!==null){
+              this.$jsonp(`http://api.map.baidu.com/geoconv/v1/?coords=${lng},${lat}&from=1&to=5&ak=1IGwblSXzAV0yxzCq0ZGdYoixoreCQwS`).then(res => {
+                console.log(res.result[0])
+                let reslat = res.result[0].y
+                let reslng = res.result[0].x
+                this.$jsonp(`http://api.map.baidu.com/geocoder/v2/?ak=1IGwblSXzAV0yxzCq0ZGdYoixoreCQwS&callback=renderReverse&location=${reslat},${reslng}&output=json&pois=1 `).then(res => {
+                  // console.log(res.result)
+                  this.formatted_address = res.result.formatted_address
+                  this.Grouping = {
+                    city: item.city,
+                    code: item.code,
+                    dataCount: item.dataCount,
+                    fixedCode: item.fixedCode,
+                    fixedName: item.fixedName,
+                    fixedStatus: item.fixedStatus,
+                    formatted_address: this.formatted_address,
+                    groupName: item.groupName,
+                    id: item.id,
+                    isNet: item.isNet,
+                    isTaskRange: item.isTaskRange,
+                    isTaskTime: item.isTaskTime,
+                    lat:reslat,
+                    lng: reslng,
+                    mac_num: item.mac_num,
+                    merchantId: item.merchantId,
+                    merchantName: item.merchantName,
+                    province: item.province,
+                    proxy_type: item.proxy_type,
+                    status: item.status,
+                    suoshu: item.suoshu,
+                    taskCode: item.taskCode,
+                    taskName: item.taskName,
+                  }
+                  this.tableData.push(this.Grouping)
+                }).catch((err) => {
+                  console.log('错误信息' + err)
+                })
+              }).catch(err => {
+                console.log('错误信息' + err)
+              })
+            }else{
+             this.$jsonp(`http://api.map.baidu.com/geocoder/v2/?ak=1IGwblSXzAV0yxzCq0ZGdYoixoreCQwS&callback=renderReverse&location=${lng},${lat}&output=json&pois=1 `).then(res => {
+                  // console.log(res.result)
+                  this.formatted_address = res.result.formatted_address
+                  this.Grouping = {
+                    city: item.city,
+                    code: item.code,
+                    dataCount: item.dataCount,
+                    fixedCode: item.fixedCode,
+                    fixedName: item.fixedName,
+                    fixedStatus: item.fixedStatus,
+                    formatted_address: this.formatted_address,
+                    groupName: item.groupName,
+                    id: item.id,
+                    isNet: item.isNet,
+                    isTaskRange: item.isTaskRange,
+                    isTaskTime: item.isTaskTime,
+                    lat: item.lat,
+                    lng: item.lng,
+                    mac_num: item.mac_num,
+                    merchantId: item.merchantId,
+                    merchantName: item.merchantName,
+                    province: item.province,
+                    proxy_type: item.proxy_type,
+                    status: item.status,
+                    suoshu: item.suoshu,
+                    taskCode: item.taskCode,
+                    taskName: item.taskName,
+                  }
+                  this.tableData.push(this.Grouping)
+                }).catch((err) => {
+                  console.log('错误信息' + err)
+                })
             }
           })
         } else if (code == 2001) {
@@ -432,11 +520,17 @@ export default {
       // this.$router.push('/index/total.vue')
     },
     handleSizeChange (val) {
+      var infos = JSON.parse(sessionStorage.getItem('info'))
+      if(infos.id ===1){
+        infos.id =''
+      }
       this.sizes = val
       this.$http.get(`modules/device/adminList`, {
         params: {
           size: val,
-          page: this.pages
+          page: this.pages,
+          serviceId:infos.id,
+          type: this.value,
         }
       }).then(res => {
         var { code, data } = res.data
@@ -541,11 +635,17 @@ export default {
       })
     },
     handleCurrentChange (val) {
+      var infos = JSON.parse(sessionStorage.getItem('info'))
+      if(infos.id ===1){
+        infos.id =''
+      }
       this.pages = val
       this.$http.get(`modules/device/adminList`, {
         params: {
           size: this.sizes,
-          page: val - 1
+          page: val - 1,
+          serviceId:infos.id,
+          type: this.value,
         }
       }).then(res => {
         var { code, data } = res.data

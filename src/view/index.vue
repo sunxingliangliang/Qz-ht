@@ -129,9 +129,11 @@ export default {
     return {
       data: [
             {name: '系统管理', id: '0', child: [
-            { name: "用户管理", path: '/index/user.vue', id: '4' }
-          ]        },
-        {          name: '客户管理', id: '5', child: [
+              { name: "用户管理", path: '/index/user.vue', id: '4' }
+                ]        
+            },
+        {          
+          name: '客户管理', id: '5', child: [
             // { name: "客户创建", path: '/index/client.vue', id: '6' },
             { name: "客户列表", path: '/index/clientele.vue', id: '8' },
           ]        },
@@ -163,8 +165,8 @@ export default {
         //     { name: "SSID管理", path: '/index/ssid.vue', id: '31' },
         //   ]        },
         {          name: '财务管理', id: '32', child: [
-            { name: "财务统计", path: '/index/financialstatistics.vue', id: '36' },
-            { name: "清竹数据", path: '/index/bamboodata.vue', id: '35' },
+            { name: "财务统计", path: '/index/financialstatistics.vue', id: '53' },
+            { name: "清竹数据", path: '/index/bamboodata.vue', id: '52' },
             { name: "充提管理", path: '/index/rush.vue', id: '34' },
             { name: "客户财务", path: '/index/finance.vue', id: '33' },
           ]        },

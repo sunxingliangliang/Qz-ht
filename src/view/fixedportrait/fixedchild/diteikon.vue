@@ -16,23 +16,23 @@
     </el-row>
     <div :class="$style.f_hx1">
       <span :class="$style.f_mc">{{mc}}</span>
-      <div id="myChart58" style="position: static; width:280px;height:300px;left:4%;"></div>
+      <div id="myChart58" style="position: static; width:280px;height:300px;"></div>
     </div>
     <div :class="$style.f_hx1">
       <span :class="$style.f_mc">{{mc1}}</span>
-      <div id="myChart59" style="position: static; width:280px;height:300px;left:4%;"></div>
+      <div id="myChart59" style="position: static; width:280px;height:300px;"></div>
     </div>
     <div :class="$style.f_hx1">
       <span :class="$style.f_mc">{{mc2}}</span>
-      <div id="myChart60" style="position: static; width:280px;height:300px;left:4%;"></div>
+      <div id="myChart60" style="position: static; width:280px;height:300px;"></div>
     </div>
     <div :class="$style.f_hx1">
       <span :class="$style.f_mc">{{mc3}}</span>
-      <div id="myChart61" style="position: static; width:280px;height:300px;left:4%;"></div>
+      <div id="myChart61" style="position: static; width:280px;height:300px;"></div>
     </div>
     <div :class="$style.f_hx1">
       <span :class="$style.f_mc">{{mc4}}</span>
-      <div id="myChart62" style="position: static; width:280px;height:300px;left:4%;"></div>
+      <div id="myChart62" style="position: static; width:280px;height:300px;"></div>
     </div>
     <br>
     <div :class="$style.f_hx3">
@@ -180,7 +180,7 @@ export default {
         color: ['#9013FE', '#0079FE', '#FF8F00', '#41E0FC ', '#B8E986', '#8C99AD ', '#FB745B', '#53237E', '#F6D707', '#38579A'], //环形图每块的颜色
         tooltip: {
           trigger: 'item',
-          formatter: "{a} <br/>{b}: {c} ({d}%)"
+          formatter: "{a} <br/>{b}: {c}%"
         },
         legend: {
           orient: 'horizontal', //图例列表的布局朝向。 horizontal - 横向 ， vertical - 竖向
@@ -197,8 +197,9 @@ export default {
             avoidLabelOverlap: false,
             label: {
               normal: {
-                show: false,
-                position: 'center'
+                show: true,
+                // position: 'center'
+                formatter: "{b}\n {c}%"
               },
               emphasis: {
                 show: true,
@@ -210,7 +211,10 @@ export default {
             },
             labelLine: {
               normal: {
-                show: false
+                show: true,
+                smooth: 0,
+                length: 10,
+                length2: 20
               }
             },
             data: data.price
@@ -229,7 +233,7 @@ export default {
         color: ['#9013FE', '#0079FE', '#FF8F00', '#41E0FC ', '#B8E986', '#8C99AD ', '#FB745B', '#53237E', '#F6D707', '#38579A'], //环形图每块的颜色
         tooltip: {
           trigger: 'item',
-          formatter: "{a} <br/>{b}: {c} ({d}%)"
+          formatter: "{a} <br/>{b}: {c}%"
         },
         legend: {
           orient: 'horizontal', //图例列表的布局朝向。 horizontal - 横向 ， vertical - 竖向
@@ -246,8 +250,9 @@ export default {
             avoidLabelOverlap: false,
             label: {
               normal: {
-                show: false,
-                position: 'center'
+                show: true,
+                // position: 'center'
+                formatter: "{b}\n {c}%"
               },
               emphasis: {
                 show: true,
@@ -259,7 +264,10 @@ export default {
             },
             labelLine: {
               normal: {
-                show: false
+                show: true,
+                smooth: 0,
+                length: 10,
+                length2: 20
               }
             },
             data: data.diningHabits
@@ -278,7 +286,7 @@ export default {
         color: ['#9013FE', '#0079FE', '#FF8F00', '#41E0FC ', '#B8E986', '#8C99AD ', '#FB745B', '#53237E', '#F6D707', '#38579A'], //环形图每块的颜色
         tooltip: {
           trigger: 'item',
-          formatter: "{a} <br/>{b}: {c} ({d}%)"
+          formatter: "{a} <br/>{b}: {c}%"
         },
         legend: {
           orient: 'horizontal', //图例列表的布局朝向。 horizontal - 横向 ， vertical - 竖向
@@ -295,8 +303,9 @@ export default {
             avoidLabelOverlap: false,
             label: {
               normal: {
-                show: false,
-                position: 'center'
+                show: true,
+                // position: 'center'
+                formatter: "{b}\n {c}%"
               },
               emphasis: {
                 show: true,
@@ -308,7 +317,10 @@ export default {
             },
             labelLine: {
               normal: {
-                show: false
+                show: true,
+                smooth: 0,
+                length: 10,
+                length2: 20
               }
             },
             data: data.catering
@@ -327,7 +339,7 @@ export default {
         color: ['#0079FE', '#41E0FC', '#B8E986', '#FB745B', '#8C99AD', '#9013FE', '#53237E', '#F6D707', '#0079FE'], //环形图每块的颜色
         tooltip: {
           trigger: 'item',
-          formatter: "{a} <br/>{b}: {c} ({d}%)"
+          formatter: "{a} <br/>{b}: {c}%"
         },
         legend: {
           orient: 'horizontal', //图例列表的布局朝向。 horizontal - 横向 ， vertical - 竖向
@@ -344,8 +356,9 @@ export default {
             avoidLabelOverlap: false,
             label: {
               normal: {
-                show: false,
-                position: 'center'
+                show: true,
+                // position: 'center'
+                formatter: "{b}\n {c}%"
               },
               emphasis: {
                 show: true,
@@ -357,7 +370,10 @@ export default {
             },
             labelLine: {
               normal: {
-                show: false
+                show: true,
+                smooth: 0,
+                length: 10,
+                length2: 20
               }
             },
             data: data.Eat_Out
@@ -376,7 +392,7 @@ export default {
         color: ['#9013FE', '#0079FE', '#FF8F00', '#41E0FC ', '#B8E986', '#8C99AD ', '#FB745B', '#53237E', '#F6D707', '#38579A'], //环形图每块的颜色
         tooltip: {
           trigger: 'item',
-          formatter: "{a} <br/>{b}: {c} ({d}%)"
+          formatter: "{a} <br/>{b}: {c}%"
         },
         legend: {
           orient: 'horizontal', //图例列表的布局朝向。 horizontal - 横向 ， vertical - 竖向
@@ -393,8 +409,9 @@ export default {
             avoidLabelOverlap: false,
             label: {
               normal: {
-                show: false,
-                position: 'center'
+                show: true,
+                // position: 'center'
+                formatter: "{b}\n {c}%"
               },
               emphasis: {
                 show: true,
@@ -406,7 +423,10 @@ export default {
             },
             labelLine: {
               normal: {
-                show: false
+                show: true,
+                smooth: 0,
+                length: 10,
+                length2: 20
               }
             },
             data: data.Eat_Home

@@ -183,12 +183,11 @@ export default {
       })
     },
     getList () {
-      this.$http.post(`modules/financeAfter/customerList`, {
-        params: {
-          size: this.sizes,
-          page: this.pages,
-        }
-      }).then(res => {
+      let info = {
+        size: this.sizes,
+        page: this.pages
+      }
+      this.$http.post(`modules/financeAfter/customerList`, info).then(res => {
         var { code, data } = res.data
         if (code === 1000) {
           // console.log(data)

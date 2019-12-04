@@ -38,6 +38,15 @@
         </el-select>
       </el-col>
     </el-row>
+    <el-divider content-position="left">数据去重</el-divider>
+    <el-row>
+      <el-col :span="7" style="margin-left: 71px;">
+        <span :class="$style.f_khmc">数据去重:</span>
+        <el-select v-model="deduplication" :class="$style.f_khipt"  placeholder="请选择">
+          <el-option v-for="item in ssqc" :key="item.id" :label="item.name" :value="item.id"></el-option>
+        </el-select>
+      </el-col>
+    </el-row>
     <el-divider content-position="left" v-if="leixing===1">区域类型</el-divider>
     <el-row v-if="leixing===1">
       <el-col :span="7" style="margin-left: 42px;">
@@ -189,7 +198,7 @@
       </div>
     </el-row>
     <!-- 地图 -->
-    <el-divider content-position="left">地理围栏</el-divider>
+  <el-divider content-position="left">地理围栏</el-divider>
     <div :class="$style.f_dlwl">
       <input type="hidden" id="collectId" name="collectId" value="${collectId}">
       <div class="easyui-layout">
@@ -245,6 +254,7 @@ export default {
       value: '',
       crowd: '',
       textarea2: '',
+      deduplication:'',
       gongxiang: false,
       xzlx: [
         {
@@ -254,6 +264,16 @@ export default {
         {
           id: 2,
           name: '行业数据'
+        },
+      ],
+      ssqc: [
+        {
+          id: 0,
+          name: '一年去重'
+        },
+        {
+          id: 1,
+          name: '一天去重'
         },
       ],
       sheng1: [],
@@ -698,7 +718,6 @@ export default {
       let arr1 = arr
       let arr2 = JSON.stringify(arr1)
       if (this.name != '' && this.leixing != '' && this.sheng != '' && this.shi != '' && this.qu != '' && arr2 != '' && this.ScenesSubdivision != '' && this.zone != '' && this.zoneSubdivision != '' && this.Scenes != '' && this.value1 != '') {
-
         if (this.leixing === 1) {
           let info = {
             'name': this.name,
@@ -711,9 +730,10 @@ export default {
             'region': this.zoneSubdivision,
             'regionTypeParent': this.Scenes,
             'regionType': this.ScenesSubdivision,
-            'signCrowdSet': this.value1
+            'signCrowdSet': this.value1,
+            'deduplication':this.deduplication,
           }
-          console.log(info)
+          // console.log(this.deduplication[0])
           this.$http.post(`modules/scencesName/region`, info).then(res => {
             var { code, data } = res.data
             if (code === 1000) {
@@ -750,7 +770,8 @@ export default {
             'toDate': this.value2[1],
             'fromTime': this.startTime.slice(0, 2),
             'toTime': this.endTime.slice(0, 2),
-            'signCrowdSet': this.value1
+            'signCrowdSet': this.value1,
+            'deduplication':this.deduplication,
           }
           this.$http.post(`modules/scencesName/industry`, info).then(res => {
             var { code, data } = res.data

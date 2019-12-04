@@ -116,10 +116,6 @@ export default {
             bamboocny:data.qzDataVktBalance,
           }
           this.Totalbalance.push(balance)
-          // this.recharge.push(recharge)
-          // this.income.push(earnings)
-          // this.outlay.push(data.payFor)
-          // this.cashOut.push(withdraw)
         } else if (code == 2001) {
           this.$message.error(res.data.message);
           window.sessionStorage.clear();
@@ -145,29 +141,8 @@ export default {
             specialTo:data.cnyAmount,//cny代理商充值
             totalCNY:data.specialCny//cny大客户充值
           }
-          // let earnings ={
-          //   collectProeVkt:data.income.collectProeVkt,
-          //   incomeVkt:data.income.incomeVkt,
-          //   ipfs:data.income.ipfs,
-          //   fixedVkt:data.income.fixedVkt,
-          //   personaVkt:data.income.personaVkt,
-          //   dataVkt:data.income.dataVkt,
-          //   qzDataIncomeVKT:data.income.qzDataIncomeVKT,
-          //   qzrewardVKT:data.income.qzrewardVKT,
-          //   proxyIncomeVKT:data.income.proxyIncomeVKT,
-          //   proxyRewardVKT:data.income.proxyRewardVKT,
-          // }
-          // let withdraw ={
-          //   proxyTxVKT:data.cashOut.proxyTxVKT,
-          //   proxyTxCNY:data.cashOut.proxyTxCNY,
-          //   specialTxVKT:data.cashOut.specialTxVKT,
-          //   specialTxCNY:data.cashOut.specialTxCNY,
-          // }
-          // this.Totalbalance.push(balance)
+          
           this.recharge.push(recharge)
-          // this.income.push(earnings)
-          // this.outlay.push(data.payFor)
-          // this.cashOut.push(withdraw)
         } else if (code == 2001) {
           this.$message.error(res.data.message);
           window.sessionStorage.clear();
@@ -200,17 +175,7 @@ export default {
             proxyRewardVKT:data.proxyRewardVKT,//任务收益
             fuwuFanXian:data.fuwuFanXian,//下级服务返现
           }
-          // let withdraw ={
-          //   proxyTxVKT:data.cashOut.proxyTxVKT,
-          //   proxyTxCNY:data.cashOut.proxyTxCNY,
-          //   specialTxVKT:data.cashOut.specialTxVKT,
-          //   specialTxCNY:data.cashOut.specialTxCNY,
-          // }
-          // this.Totalbalance.push(balance)
-          // this.recharge.push(recharge)
           this.earnings.push(earnings)
-          // this.outlay.push(data.payFor)
-          // this.cashOut.push(withdraw)
         } else if (code == 2001) {
           this.$message.error(res.data.message);
           window.sessionStorage.clear();
@@ -229,9 +194,9 @@ export default {
         if(code===1000){
           console.log(data)
           let outlay ={
-            specialByPay:data.specialByPay,
-            proxyByPay:data.proxyByPay,
-            qingzhuPay:data.qingzhuPay,
+            specialByPay:data.specialByPrice,
+            proxyByPay:data.proxyByPrice,
+            qingzhuPay:data.qingzhu,
             specialFanXian:data.specialFanXian,
           }
           this.outlay.push(outlay)

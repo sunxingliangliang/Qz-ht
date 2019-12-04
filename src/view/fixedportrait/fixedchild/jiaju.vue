@@ -44,16 +44,16 @@
     </div>
     <br>
     <div :class="$style.f_hx3">
-      <div id="myChart34" style="position: static; width:100%;height:300px;"></div>
+      <div id="myChart34" style="position: static; width:1045px;height:300px;"></div>
     </div>
     <div :class="$style.f_hx3">
-      <div id="myChart35" style="position: static; width:100%;height:300px;"></div>
+      <div id="myChart35" style="position: static; width:1045px;height:300px;"></div>
     </div>
     <div :class="$style.f_hx3">
-      <div id="myChart36" style="position: static; width:100%;height:300px;"></div>
+      <div id="myChart36" style="position: static; width:1045px;height:300px;"></div>
     </div>
     <div :class="$style.f_hx3">
-      <div id="myChart37" style="position: static; width:100%;height:300px;"></div>
+      <div id="myChart37" style="position: static; width:1045px;height:300px;"></div>
     </div>
   </div>
 </template>
@@ -154,7 +154,7 @@ export default {
         color: ['#8C99AD', '#41E0FC', '#0079FE', '#B8E986', '#FF8F00'], //环形图每块的颜色
         tooltip: {
           trigger: 'item',
-          formatter: "{a} <br/>{b}: {c} ({d}%)"
+          formatter: "{a} <br/>{b}: {c}%",
         },
         legend: {
           orient: 'horizontal', //图例列表的布局朝向。 horizontal - 横向 ， vertical - 竖向
@@ -171,8 +171,9 @@ export default {
             avoidLabelOverlap: false,
             label: {
               normal: {
-                show: false,
-                position: 'center'
+                show: true,
+                // position: 'center'
+                formatter: "{b}\n {c}%"
               },
               emphasis: {
                 show: true,
@@ -184,7 +185,10 @@ export default {
             },
             labelLine: {
               normal: {
-                show: false
+                show: true,
+                smooth: 0,
+                length: 10,
+                length2: 20
               }
             },
             data: data.decorationMaterials
@@ -203,7 +207,7 @@ export default {
         color: ['#41E0FC ', '#0079FE', '#B8E986'], //环形图每块的颜色
         tooltip: {
           trigger: 'item',
-          formatter: "{a} <br/>{b}: {c} ({d}%)"
+          formatter: "{a} <br/>{b}: {c}%",
         },
         legend: {
           orient: 'horizontal', //图例列表的布局朝向。 horizontal - 横向 ， vertical - 竖向
@@ -220,8 +224,9 @@ export default {
             avoidLabelOverlap: false,
             label: {
               normal: {
-                show: false,
-                position: 'center'
+                show: true,
+                // position: 'center'
+                formatter: "{b}\n {c}%"
               },
               emphasis: {
                 show: true,
@@ -233,7 +238,10 @@ export default {
             },
             labelLine: {
               normal: {
-                show: false
+                show: true,
+                smooth: 0,
+                length: 10,
+                length2: 20
               }
             },
             data: data.furniture
@@ -252,7 +260,7 @@ export default {
         color: ['#8C99AD', '#41E0FC', '#B8E986', '#FF8F00'], //环形图每块的颜色
         tooltip: {
           trigger: 'item',
-          formatter: "{a} <br/>{b}: {c} ({d}%)"
+          formatter: "{a} <br/>{b}: {c}%",
         },
         legend: {
           orient: 'horizontal', //图例列表的布局朝向。 horizontal - 横向 ， vertical - 竖向
@@ -269,8 +277,9 @@ export default {
             avoidLabelOverlap: false,
             label: {
               normal: {
-                show: false,
-                position: 'center'
+                show: true,
+                // position: 'center'
+                formatter: "{b}\n {c}%"
               },
               emphasis: {
                 show: true,
@@ -282,7 +291,10 @@ export default {
             },
             labelLine: {
               normal: {
-                show: false
+                show: true,
+                smooth: 0,
+                length: 10,
+                length2: 20
               }
             },
             data: data.furnitureCategory
@@ -301,7 +313,7 @@ export default {
         color: ['#0079FE', '#41E0FC', '#B8E986', '#FB745B', '#8C99AD', '#9013FE', '#53237E', '#F6D707', '#0079FE'], //环形图每块的颜色
         tooltip: {
           trigger: 'item',
-          formatter: "{a} <br/>{b}: {c} ({d}%)"
+          formatter: "{a} <br/>{b}: {c}%",
         },
         legend: {
           orient: 'horizontal', //图例列表的布局朝向。 horizontal - 横向 ， vertical - 竖向
@@ -318,8 +330,9 @@ export default {
             avoidLabelOverlap: false,
             label: {
               normal: {
-                show: false,
-                position: 'center'
+                show: true,
+                // position: 'center'
+                formatter: "{b}\n {c}%"
               },
               emphasis: {
                 show: true,
@@ -331,7 +344,10 @@ export default {
             },
             labelLine: {
               normal: {
-                show: false
+                show: true,
+                smooth: 0,
+                length: 10,
+                length2: 20
               }
             },
             data: data.furnitureFocus
@@ -350,7 +366,7 @@ export default {
         color: ['#8C99AD', '#41E0FC', '#FB745B', '#0079FE'], //环形图每块的颜色
         tooltip: {
           trigger: 'item',
-          formatter: "{a} <br/>{b}: {c} ({d}%)"
+          formatter: "{a} <br/>{b}: {c}%",
         },
         legend: {
           orient: 'horizontal', //图例列表的布局朝向。 horizontal - 横向 ， vertical - 竖向
@@ -367,8 +383,9 @@ export default {
             avoidLabelOverlap: false,
             label: {
               normal: {
-                show: false,
-                position: 'center'
+                show: true,
+                // position: 'center'
+                formatter: "{b}\n {c}%"
               },
               emphasis: {
                 show: true,
@@ -380,7 +397,10 @@ export default {
             },
             labelLine: {
               normal: {
-                show: false
+                show: true,
+                smooth: 0,
+                length: 10,
+                length2: 20
               }
             },
             data: data.homeTextiles
@@ -399,7 +419,7 @@ export default {
         color: ['#9013FE', '#41E0FC', '#B8E986', '#0079FE '], //环形图每块的颜色
         tooltip: {
           trigger: 'item',
-          formatter: "{a} <br/>{b}: {c} ({d}%)"
+          formatter: "{a} <br/>{b}: {c}%",
         },
         legend: {
           orient: 'horizontal', //图例列表的布局朝向。 horizontal - 横向 ， vertical - 竖向
@@ -416,8 +436,9 @@ export default {
             avoidLabelOverlap: false,
             label: {
               normal: {
-                show: false,
-                position: 'center'
+                show: true,
+                // position: 'center'
+                formatter: "{b}\n {c}%"
               },
               emphasis: {
                 show: true,
@@ -429,7 +450,10 @@ export default {
             },
             labelLine: {
               normal: {
-                show: false
+                show: true,
+                smooth: 0,
+                length: 10,
+                length2: 20
               }
             },
             data: data.living
@@ -448,7 +472,7 @@ export default {
         color: ['#8C99AD', '#41E0FC', '#FB745B', '#9013FE'], //环形图每块的颜色
         tooltip: {
           trigger: 'item',
-          formatter: "{a} <br/>{b}: {c} ({d}%)"
+          formatter: "{a} <br/>{b}: {c}%",
         },
         legend: {
           orient: 'horizontal', //图例列表的布局朝向。 horizontal - 横向 ， vertical - 竖向
@@ -465,8 +489,9 @@ export default {
             avoidLabelOverlap: false,
             label: {
               normal: {
-                show: false,
-                position: 'center'
+                show: true,
+                // position: 'center'
+                formatter: "{b}\n {c}%"
               },
               emphasis: {
                 show: true,
@@ -478,7 +503,10 @@ export default {
             },
             labelLine: {
               normal: {
-                show: false
+                show: true,
+                smooth: 0,
+                length: 10,
+                length2: 20
               }
             },
             data: data.priceRange

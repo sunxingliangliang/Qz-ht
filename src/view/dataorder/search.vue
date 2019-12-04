@@ -118,7 +118,7 @@
     <el-dialog title="提示" :visible.sync="emancipate" width="30%" :before-close="handleClose">
       <el-input type="textarea" :rows="2" placeholder="请输入内容" v-model="textarea"></el-input>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="bh = false">取 消</el-button>
+        <el-button @click="emancipate = false">取 消</el-button>
         <el-button type="primary" @click="certain">确 定</el-button>
       </span>
     </el-dialog>
@@ -198,7 +198,7 @@ export default {
           var basic = {
             code: data.code,
             name: this.row.name,
-            createTime: this.row.createTime,
+            createTime: data.createTime,
             status: this.status
           }
           var client = {
@@ -239,7 +239,7 @@ export default {
       let str =  utils(params)
       let token = window.sessionStorage.getItem('token')
       console.log(str)
-      this.href = `http://47.105.207.228:8875/modules/order/export/csv?orderId=${this.id}&timestamp=${time}&type=1&sign=${str}&token=${token}`
+      this.href = `http://47.105.207.228:8874/modules/order/export/csv?orderId=${this.id}&timestamp=${time}&type=1&sign=${str}&token=${token}`
     },
     exportimei () {
       let time = new Date().getTime()
@@ -251,7 +251,7 @@ export default {
       let str =  utils(params)
       let token = window.sessionStorage.getItem('token')
       console.log(str)
-      this.href1 = `http://47.105.207.228:8875/modules/order/export/csv?orderId=${this.id}&timestamp=${time}&type=2&sign=${str}&token=${token}`
+      this.href1 = `http://47.105.207.228:8874/modules/order/export/csv?orderId=${this.id}&timestamp=${time}&type=2&sign=${str}&token=${token}`
     },
     // next () {
     //   if (this.active++ > 2) this.active = 0;
@@ -262,6 +262,7 @@ export default {
     },
     handleClose () {
       this.bh = false
+      this.emancipate = false
     },
     reject () {
       console.log(1)

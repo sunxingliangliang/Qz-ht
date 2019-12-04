@@ -417,5 +417,6 @@ p{
 }
 .f_bh {
   cursor: pointer;
+  color: #252cdc;
 }
 </style>

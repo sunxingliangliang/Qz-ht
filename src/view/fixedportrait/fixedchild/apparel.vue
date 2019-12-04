@@ -69,25 +69,25 @@
     <br>
 
     <div :class="$style.f_hx3">
-      <div id="myChart51" style="position: static; width:900px;height:300px;left:4%;"></div>
+      <div id="myChart51" style="position: static; width:1045px;height:300px;left:4%;"></div>
     </div>
     <div :class="$style.f_hx3">
-      <div id="myChart52" style="position: static; width:100%;height:300px;left:4%;"></div>
+      <div id="myChart52" style="position: static; width:1045px;height:300px;left:4%;"></div>
     </div>
     <div :class="$style.f_hx3">
-      <div id="myChart53" style="position: static; width:100%;height:300px;left:4%;"></div>
+      <div id="myChart53" style="position: static; width:1045px;height:300px;left:4%;"></div>
     </div>
     <div :class="$style.f_hx3">
-      <div id="myChart54" style="position: static; width:100%;height:300px;left:4%;"></div>
+      <div id="myChart54" style="position: static; width:1045px;height:300px;left:4%;"></div>
     </div>
     <div :class="$style.f_hx3">
-      <div id="myChart55" style="position: static; width:100%;height:300px;left:4%;"></div>
+      <div id="myChart55" style="position: static; width:1045px;height:300px;left:4%;"></div>
     </div>
     <div :class="$style.f_hx3">
-      <div id="myChart56" style="position: static; width:100%;height:300px;left:4%;"></div>
+      <div id="myChart56" style="position: static; width:1045px;height:300px;left:4%;"></div>
     </div>
     <div :class="$style.f_hx3">
-      <div id="myChart57" style="position: static; width:100%;height:300px;left:4%;"></div>
+      <div id="myChart57" style="position: static; width:1045px;height:300px;left:4%;"></div>
     </div>
   </div>
 </template>
@@ -207,7 +207,7 @@ export default {
         color: ['#8C99AD', '#41E0FC', '#0079FE', '#B8E986', '#FF8F00'], //环形图每块的颜色
         tooltip: {
           trigger: 'item',
-          formatter: "{a} <br/>{b}: {c} ({d}%)"
+          formatter: "{a} <br/>{b}: {c}%"
         },
         legend: {
           orient: 'horizontal', //图例列表的布局朝向。 horizontal - 横向 ， vertical - 竖向
@@ -224,8 +224,9 @@ export default {
             avoidLabelOverlap: false,
             label: {
               normal: {
-                show: false,
-                position: 'center'
+                show: true,
+                // position: 'center'
+                formatter: "{b}\n {c}%"
               },
               emphasis: {
                 show: true,
@@ -237,7 +238,10 @@ export default {
             },
             labelLine: {
               normal: {
-                show: false
+                show: true,
+                smooth: 0,
+                length: 10,
+                length2: 20
               }
             },
             data: data.accessories
@@ -256,7 +260,7 @@ export default {
         color: ['#41E0FC ', '#0079FE', '#B8E986'], //环形图每块的颜色
         tooltip: {
           trigger: 'item',
-          formatter: "{a} <br/>{b}: {c} ({d}%)"
+          formatter: "{a} <br/>{b}: {c}%"
         },
         legend: {
           orient: 'horizontal', //图例列表的布局朝向。 horizontal - 横向 ， vertical - 竖向
@@ -273,8 +277,9 @@ export default {
             avoidLabelOverlap: false,
             label: {
               normal: {
-                show: false,
-                position: 'center'
+                show: true,
+                // position: 'center'
+                formatter: "{b}\n {c}%"
               },
               emphasis: {
                 show: true,
@@ -286,7 +291,10 @@ export default {
             },
             labelLine: {
               normal: {
-                show: false
+                show: true,
+                smooth: 0,
+                length: 10,
+                length2: 20
               }
             },
             data: data.accessoriesPrice
@@ -305,7 +313,7 @@ export default {
         color: ['#8C99AD', '#41E0FC', '#B8E986', '#FF8F00'], //环形图每块的颜色
         tooltip: {
           trigger: 'item',
-          formatter: "{a} <br/>{b}: {c} ({d}%)"
+          formatter: "{a} <br/>{b}: {c}%"
         },
         legend: {
           orient: 'horizontal', //图例列表的布局朝向。 horizontal - 横向 ， vertical - 竖向
@@ -322,8 +330,9 @@ export default {
             avoidLabelOverlap: false,
             label: {
               normal: {
-                show: false,
-                position: 'center'
+                show: true,
+                // position: 'center'
+                formatter: "{b}\n {c}%"
               },
               emphasis: {
                 show: true,
@@ -335,7 +344,10 @@ export default {
             },
             labelLine: {
               normal: {
-                show: false
+                show: true,
+                smooth: 0,
+                length: 10,
+                length2: 20
               }
             },
             data: data.clothing
@@ -354,7 +366,7 @@ export default {
         color: ['#0079FE', '#41E0FC', '#B8E986', '#FB745B', '#8C99AD', '#9013FE', '#53237E', '#F6D707', '#0079FE'], //环形图每块的颜色
         tooltip: {
           trigger: 'item',
-          formatter: "{a} <br/>{b}: {c} ({d}%)"
+          formatter: "{a} <br/>{b}: {c}%"
         },
         legend: {
           orient: 'horizontal', //图例列表的布局朝向。 horizontal - 横向 ， vertical - 竖向
@@ -371,8 +383,9 @@ export default {
             avoidLabelOverlap: false,
             label: {
               normal: {
-                show: false,
-                position: 'center'
+                show: true,
+                // position: 'center'
+                formatter: "{b}\n {c}%"
               },
               emphasis: {
                 show: true,
@@ -384,7 +397,10 @@ export default {
             },
             labelLine: {
               normal: {
-                show: false
+                show: true,
+                smooth: 0,
+                length: 10,
+                length2: 20
               }
             },
             data: data.girlPrice
@@ -403,7 +419,7 @@ export default {
         color: ['#8C99AD', '#41E0FC', '#FB745B', '#0079FE'], //环形图每块的颜色
         tooltip: {
           trigger: 'item',
-          formatter: "{a} <br/>{b}: {c} ({d}%)"
+          formatter: "{a} <br/>{b}: {c}%"
         },
         legend: {
           orient: 'horizontal', //图例列表的布局朝向。 horizontal - 横向 ， vertical - 竖向
@@ -420,8 +436,9 @@ export default {
             avoidLabelOverlap: false,
             label: {
               normal: {
-                show: false,
-                position: 'center'
+                show: true,
+                // position: 'center'
+                formatter: "{b}\n {c}%"
               },
               emphasis: {
                 show: true,
@@ -433,7 +450,10 @@ export default {
             },
             labelLine: {
               normal: {
-                show: false
+                show: true,
+                smooth: 0,
+                length: 10,
+                length2: 20
               }
             },
             data: data.girlStyle
@@ -452,7 +472,7 @@ export default {
         color: ['#9013FE', '#41E0FC', '#B8E986', '#0079FE '], //环形图每块的颜色
         tooltip: {
           trigger: 'item',
-          formatter: "{a} <br/>{b}: {c} ({d}%)"
+          formatter: "{a} <br/>{b}: {c}%"
         },
         legend: {
           orient: 'horizontal', //图例列表的布局朝向。 horizontal - 横向 ， vertical - 竖向
@@ -469,8 +489,9 @@ export default {
             avoidLabelOverlap: false,
             label: {
               normal: {
-                show: false,
-                position: 'center'
+                show: true,
+                // position: 'center'
+                formatter: "{b}\n {c}%"
               },
               emphasis: {
                 show: true,
@@ -482,7 +503,10 @@ export default {
             },
             labelLine: {
               normal: {
-                show: false
+                show: true,
+                smooth: 0,
+                length: 10,
+                length2: 20
               }
             },
             data: data.luggageCategories
@@ -501,7 +525,7 @@ export default {
         color: ['#8C99AD', '#41E0FC', '#FB745B', '#9013FE'], //环形图每块的颜色
         tooltip: {
           trigger: 'item',
-          formatter: "{a} <br/>{b}: {c} ({d}%)"
+          formatter: "{a} <br/>{b}: {c}%"
         },
         legend: {
           orient: 'horizontal', //图例列表的布局朝向。 horizontal - 横向 ， vertical - 竖向
@@ -518,8 +542,9 @@ export default {
             avoidLabelOverlap: false,
             label: {
               normal: {
-                show: false,
-                position: 'center'
+                show: true,
+                // position: 'center'
+                formatter: "{b}\n {c}%"
               },
               emphasis: {
                 show: true,
@@ -531,7 +556,10 @@ export default {
             },
             labelLine: {
               normal: {
-                show: false
+                show: true,
+                smooth: 0,
+                length: 10,
+                length2: 20
               }
             },
             data: data.menWearPrice
@@ -550,7 +578,7 @@ export default {
         color: ['#FF8F00', '#41E0FC', '#B8E986', '#0079FE '], //环形图每块的颜色
         tooltip: {
           trigger: 'item',
-          formatter: "{a} <br/>{b}: {c} ({d}%)"
+          formatter: "{a} <br/>{b}: {c}%"
         },
         legend: {
           orient: 'horizontal', //图例列表的布局朝向。 horizontal - 横向 ， vertical - 竖向
@@ -567,8 +595,9 @@ export default {
             avoidLabelOverlap: false,
             label: {
               normal: {
-                show: false,
-                position: 'center'
+                show: true,
+                // position: 'center'
+                formatter: "{b}\n {c}%"
               },
               emphasis: {
                 show: true,
@@ -580,7 +609,10 @@ export default {
             },
             labelLine: {
               normal: {
-                show: false
+                show: true,
+                smooth: 0,
+                length: 10,
+                length2: 20
               }
             },
             data: data.menswearStyle
@@ -599,7 +631,7 @@ export default {
         color: ['#8C99AD', '#41E0FC', '#FB745B', '#0079FE'], //环形图每块的颜色
         tooltip: {
           trigger: 'item',
-          formatter: "{a} <br/>{b}: {c} ({d}%)"
+          formatter: "{a} <br/>{b}: {c}%"
         },
         legend: {
           orient: 'horizontal', //图例列表的布局朝向。 horizontal - 横向 ， vertical - 竖向
@@ -616,8 +648,9 @@ export default {
             avoidLabelOverlap: false,
             label: {
               normal: {
-                show: false,
-                position: 'center'
+                show: true,
+                // position: 'center'
+                formatter: "{b}\n {c}%"
               },
               emphasis: {
                 show: true,
@@ -629,7 +662,10 @@ export default {
             },
             labelLine: {
               normal: {
-                show: false
+                show: true,
+                smooth: 0,
+                length: 10,
+                length2: 20
               }
             },
             data: data.shoes
@@ -648,7 +684,7 @@ export default {
         color: ['#9013FE', '#41E0FC', '#B8E986', '#0079FE '], //环形图每块的颜色
         tooltip: {
           trigger: 'item',
-          formatter: "{a} <br/>{b}: {c} ({d}%)"
+          formatter: "{a} <br/>{b}: {c}%"
         },
         legend: {
           orient: 'horizontal', //图例列表的布局朝向。 horizontal - 横向 ， vertical - 竖向
@@ -665,8 +701,9 @@ export default {
             avoidLabelOverlap: false,
             label: {
               normal: {
-                show: false,
-                position: 'center'
+                show: true,
+                // position: 'center'
+                formatter: "{b}\n {c}%"
               },
               emphasis: {
                 show: true,
@@ -678,7 +715,10 @@ export default {
             },
             labelLine: {
               normal: {
-                show: false
+                show: true,
+                smooth: 0,
+                length: 10,
+                length2: 20
               }
             },
             data: data.sportsOut
@@ -697,7 +737,7 @@ export default {
         color: ['#8C99AD', '#41E0FC', '#FB745B', '#9013FE'], //环形图每块的颜色
         tooltip: {
           trigger: 'item',
-          formatter: "{a} <br/>{b}: {c} ({d}%)"
+          formatter: "{a} <br/>{b}: {c}%"
         },
         legend: {
           orient: 'horizontal', //图例列表的布局朝向。 horizontal - 横向 ， vertical - 竖向
@@ -714,8 +754,9 @@ export default {
             avoidLabelOverlap: false,
             label: {
               normal: {
-                show: false,
-                position: 'center'
+                show: true,
+                // position: 'center'
+                formatter: "{b}\n {c}%"
               },
               emphasis: {
                 show: true,
@@ -727,7 +768,10 @@ export default {
             },
             labelLine: {
               normal: {
-                show: false
+                show: true,
+                smooth: 0,
+                length: 10,
+                length2: 20
               }
             },
             data: data.sportsOutPrice
@@ -746,7 +790,7 @@ export default {
         color: ['#FF8F00', '#41E0FC', '#B8E986', '#0079FE '], //环形图每块的颜色
         tooltip: {
           trigger: 'item',
-          formatter: "{a} <br/>{b}: {c} ({d}%)"
+          formatter: "{a} <br/>{b}: {c}%"
         },
         legend: {
           orient: 'horizontal', //图例列表的布局朝向。 horizontal - 横向 ， vertical - 竖向
@@ -763,8 +807,9 @@ export default {
             avoidLabelOverlap: false,
             label: {
               normal: {
-                show: false,
-                position: 'center'
+                show: true,
+                // position: 'center'
+                formatter: "{b}\n {c}%"
               },
               emphasis: {
                 show: true,
@@ -776,7 +821,10 @@ export default {
             },
             labelLine: {
               normal: {
-                show: false
+                show: true,
+                smooth: 0,
+                length: 10,
+                length2: 20
               }
             },
             data: data.underwearHomePrice
@@ -795,7 +843,7 @@ export default {
         color: ['#FF8F00', '#41E0FC', '#B8E986', '#0079FE '], //环形图每块的颜色
         tooltip: {
           trigger: 'item',
-          formatter: "{a} <br/>{b}: {c} ({d}%)"
+          formatter: "{a} <br/>{b}: {c}%"
         },
         legend: {
           orient: 'horizontal', //图例列表的布局朝向。 horizontal - 横向 ， vertical - 竖向
@@ -812,8 +860,9 @@ export default {
             avoidLabelOverlap: false,
             label: {
               normal: {
-                show: false,
-                position: 'center'
+                show: true,
+                // position: 'center'
+                formatter: "{b}\n {c}%"
               },
               emphasis: {
                 show: true,
@@ -825,7 +874,10 @@ export default {
             },
             labelLine: {
               normal: {
-                show: false
+                show: true,
+                smooth: 0,
+                length: 10,
+                length2: 20
               }
             },
             data: data.underwearHomeType

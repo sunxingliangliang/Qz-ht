@@ -85,8 +85,8 @@
       </div>
     </el-row>
     <div :class="$style.f_hx2">
-      <div id="myChart26" style="position: static; width:49%;height:300px; display: inline-block;"></div>
-      <div id="allmap" style="height:330px; width:49%; display: inline-block;"></div>
+      <div id="myChart26" style="position: static; width:450px;height:300px; display: inline-block;"></div>
+      <div id="allmaps" style="height:330px; width:49%; display: inline-block;"></div>
     </div>
   </div>
 </template>
@@ -169,14 +169,14 @@ export default {
             map.centerAndZoom(centerPoint, mapZoom);
           }
           //创建地图
-          var map = new BMap.Map("allmap");
+          var map = new BMap.Map("allmaps");
           map.centerAndZoom(new BMap.Point(112.591886, 26.905407), 14); // 设置中心点
           addMarker(points);
           map.addControl(new BMap.MapTypeControl());
           map.enableScrollWheelZoom(true);
           var heatmapOverlay = new BMapLib.HeatmapOverlay({ "radius": 20 });
           map.addOverlay(heatmapOverlay);
-          heatmapOverlay.setDataSet({ data: points, max: 100 });
+          heatmapOverlay.setDataSet({ data: points, max: 10 });
           heatmapOverlay.show();
           setTimeout(function () {
             setZoom(bPoints);
@@ -237,6 +237,7 @@ export default {
         yAxis: [
           {
             type: 'category',
+            inverse: true,//排序大到小
             data: name,
             axisLabel: {
               interval: 0,
@@ -244,7 +245,7 @@ export default {
                 // console.log(params)
                 var newParamsName = "";
                 var paramsNameNumber = params.length;
-                var provideNumber = 8; //一行显示几个字
+                var provideNumber = 21; //一行显示几个字
                 var rowNumber = Math.ceil(paramsNameNumber / provideNumber);
                 if (paramsNameNumber > provideNumber) {
                   for (var p = 0; p < rowNumber; p++) {
@@ -408,14 +409,14 @@ export default {
             map.centerAndZoom(centerPoint, mapZoom);
           }
           //创建地图
-          var map = new BMap.Map("allmap");
+          var map = new BMap.Map("allmaps");
           map.centerAndZoom(new BMap.Point(112.591886, 26.905407), 14); // 设置中心点
           addMarker(points);
           map.addControl(new BMap.MapTypeControl());
           map.enableScrollWheelZoom(true);
           var heatmapOverlay = new BMapLib.HeatmapOverlay({ "radius": 20 });
           map.addOverlay(heatmapOverlay);
-          heatmapOverlay.setDataSet({ data: points, max: 100 });
+          heatmapOverlay.setDataSet({ data: points, max: 10 });
           heatmapOverlay.show();
           setTimeout(function () {
             setZoom(bPoints);

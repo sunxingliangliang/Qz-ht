@@ -277,7 +277,17 @@
           </el-col>
           <el-col :span="12">
               <el-form-item label="客户类型">
-                <el-input v-model="formkhfulls.proxy_type" :disabled="true"></el-input>
+                <!-- <el-input v-model="formkhfulls.proxy_type" :disabled="true"></el-input> -->
+                <div>
+                  <el-select v-model="formkhfulls.proxy_type" :disabled="true">
+                    <el-option
+                      v-for="item in lx"
+                      :key="item.id"
+                      :label="item.name"
+                      :value="item.id"
+                    ></el-option>
+                  </el-select>
+                </div>
               </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -378,6 +388,32 @@ export default {
           resource: '',
           desc: ''
         },
+        lx: [
+         {
+          id: 1,
+          name: '省级运营中心'
+        },
+        {
+          id: 2,
+          name: '市级运营中心'
+        },
+        {
+          id: 3,
+          name: '市级一般代理商'
+        },
+        {
+          id: 4,
+          name: '大客户'
+        },
+        {
+          id: 5,
+          name: '清竹数据'
+        },
+        {
+          id:6,
+          name:'全国代理'
+        }
+      ],
       dialogVisible: false,
       hd:false,
       jy: false,
@@ -742,6 +778,7 @@ h3 {
 }
 .f_bh {
   cursor: pointer;
+  color: #252cdc;
 }
 .f_row {
   margin-bottom: 20px;

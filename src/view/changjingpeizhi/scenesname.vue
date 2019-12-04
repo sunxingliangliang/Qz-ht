@@ -15,7 +15,7 @@
     </div>
     <!-- 表格 -->
     <div>
-      <el-table :data="tableData" border style="width: 100%">
+      <el-table :data="tableData" border style="width: 100%" v-loading="loading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading">
         <el-table-column prop="scencesName" label="名称"></el-table-column>
         <el-table-column label="地点">
           <template slot-scope="scope">
@@ -41,6 +41,12 @@
         <el-table-column label="人群标签">
           <template slot-scope="scope">
             <span v-for="(item,i) in scope.row.crowds" :key="i">{{item.name}},</span>
+          </template>
+        </el-table-column>
+         <el-table-column label="去重方式">
+          <template slot-scope="scope">
+            <span v-if="scope.row.deduplication===0">一年去重</span>
+            <span v-if="scope.row.deduplication===1">一天去重</span>
           </template>
         </el-table-column>
         <el-table-column label="操作">
@@ -85,7 +91,8 @@ export default {
       Scenesname: '',
       Fence: false,
       sizes:10,
-      pages:0
+      pages:0,
+      loading:true
     }
   },
   mounted () {
@@ -102,6 +109,7 @@ export default {
       }).then(res => {
         var { code, data } = res.data
         if (code === 1000) {
+          this.loading = false
           this.tableData = data.content
           this.total = data.total
         } else if (code == 2001) {
@@ -139,7 +147,7 @@ export default {
       var str = row.lbs
       // var str = '[[{\"lng\":120.360538,\"lat\":36.11021},{\"lng\":120.406244,\"lat\":36.11021},{\"lng\":120.408687,\"lat\":36.083497},{\"lng\":120.356082,\"lat\":36.078596},{\"lng\":120.347459,\"lat\":36.088397}]]'
       var strObj = JSON.parse(str)
-      var points = strObj[0];
+      var points = strObj;
       // 百度坐标系坐标(地图中需要使用这个)
       var bPoints = new Array();
       //创建标注点并添加到地图中

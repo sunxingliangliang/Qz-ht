@@ -2,7 +2,7 @@
   <div>
     <sx></sx>
     <!-- 筛选 -->
-    <h2 style="text-align: left; margin-top: 0;">清竹数据({{zhanghu}})</h2>
+    <h2 style="text-align: left; margin-top: 0;">清竹数据({{zhanghu}})</h2>
     <!-- 数据统计 -->
     <el-row :class="$style.f_row">
       <el-col :span="3" :class="$style.f_da">
@@ -97,7 +97,7 @@ export default {
   },
   data () {
     return {
-      zhanghu: 'qingzhu1234',
+      zhanghu:'',
       value: '',
       value1: '',
       options: [
@@ -136,7 +136,7 @@ export default {
     }
   },
   mounted () {
-    // this.getCount();
+    this.getCount();
     this.getList();
   },
   methods: {

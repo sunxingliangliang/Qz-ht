@@ -8,6 +8,13 @@
         <el-input placeholder="请输入内容" :class="$style.f_khipt" v-model="input" clearable></el-input>
       </el-col>
     </el-row>
+    <!-- <el-divider content-position="left">数据去重</el-divider>
+    <el-row>
+      <el-col :span="7" style="margin-left:40px">
+        <span :class="$style.f_khmc">数据去重:</span>
+        <el-input placeholder="请输入内容" :class="$style.f_khipt" v-model="quchong" clearable :disabled="true"></el-input>
+      </el-col>
+    </el-row> -->
     <el-divider content-position="left">采集地点</el-divider>
     <el-row>
       <el-col :span="7" style="margin-left: 84px;">
@@ -309,6 +316,16 @@ export default {
       crowd: '',
       textarea2: '',
       gongxiang: false,
+      qqcs:[
+        {
+          id:1,
+          name:'一年去重'
+        },
+        {
+          id:2,
+          name:'一天去重'
+        }
+      ],
       xzlx: [
         {
           id: 1,
@@ -338,6 +355,7 @@ export default {
       zoneSubdivisionid: '',
       Scenesid: '',
       ScenesSubdivisionid: '',
+      deduplication:'',
       regionParent: [],
       region: [],
       regionTypeParent: [],
@@ -348,6 +366,7 @@ export default {
       shengid: '',
       shiid: '',
       quid: '',
+      quchong:'',
       valuetime: []
     }
   },
@@ -368,6 +387,7 @@ export default {
           this.shengid = data.province.id
           this.shiid = data.city.id
           this.quid = data.area.id
+          this.quchong = data.deduplication
           let name = []
           let id = []
           console.log(data)
@@ -946,9 +966,12 @@ export default {
             'regionTypeParent': this.Scenesid,
             'regionType': this.ScenesSubdivisionid,
             'signCrowdSet': ids,
-            'id': this.id
+            'id': this.id,
+            'deduplication':this.quchong
           }
           console.log(arr2)
+          console.log('quchong',this.deduplication)
+
           this.$http.put(`modules/scencesName/region`, info).then(res => {
             var { code, data } = res.data
             if (code === 1000) {
@@ -981,7 +1004,9 @@ export default {
             'toDate': this.valuetime[1],
             'fromTime': this.startTime.slice(0, 2),
             'toTime': this.endTime.slice(0, 2),
+            'deduplication':this.quchong
           }
+          console.log('quchong1',this.deduplication)
           console.log(arr2)
           this.$http.put(`modules/scencesName/industry`, info).then(res => {
             var { code, data } = res.data
@@ -1018,9 +1043,11 @@ export default {
             'regionTypeParent': this.Scenesid,
             'regionType': this.ScenesSubdivisionid,
             'signCrowdSet': id,
-            'id': this.id
+            'id': this.id,
+            'deduplication':this.quchong,
           }
           console.log(arr2)
+          console.log('quchong2',this.deduplication)
           this.$http.put(`modules/scencesName/region`, info).then(res => {
             var { code, data } = res.data
             if (code === 1000) {
@@ -1052,7 +1079,8 @@ export default {
             'fromDate': this.valuetime[0],
             'toDate': this.valuetime[1],
             'fromTime': this.startTime.slice(0, 2),
-            'toTime': this.endTime.slice(0, 2)
+            'toTime': this.endTime.slice(0, 2),
+            'deduplication':this.quchong,
           }
           console.log(arr2)
           console.log(this.valuetime)

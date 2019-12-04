@@ -75,7 +75,7 @@ export default {
             if (data.identity.code == 1001) {
               console.log(data)
               // console.log('平台管理员')
-              let arr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51']
+              let arr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51','52','53']
               let name = username
               let mima = passowrd
               window.sessionStorage.setItem('data', JSON.stringify(arr))
@@ -84,7 +84,8 @@ export default {
               window.sessionStorage.setItem('info', JSON.stringify(data.user))
               this.$router.push("./index");
             } else if (data.identity.code == 1002) {
-              let arr = ['5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '22', '23', '24', '25', '26', '27', '28', '29', '31', '31', '35', '36', '37']
+              //客服经理
+              let arr = ['5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19','20','21', '22', '23', '24', '25', '26', '27', '28', '29', '31', '31', '35', '36', '37','47','49','48','50','51']
               let name = username
               let mima = passowrd
               window.sessionStorage.setItem('data', JSON.stringify(arr))
@@ -94,7 +95,7 @@ export default {
               this.$router.push("./index");
             } else if (data.identity.code == 1003) {
               //客服
-              let arr = ['6', '7', '9', '10', '11', '12', '13', '14', '15',  '18', '19', '22', '23', '24', '25', '26', '27', '28', '29', '31', '31', '35', '36', '37']
+              let arr = ['6', '7', '9', '10', '11', '12', '13', '14','15',  '17','18', '19','20','21', '22', '23', '24', '25', '26', '27', '28', '29', '31', '31', '35', '36', '37','47','49','48','50','51']
               let name = username
               let mima = passowrd
               window.sessionStorage.setItem('data', JSON.stringify(arr))
@@ -103,7 +104,8 @@ export default {
               window.sessionStorage.setItem('info', JSON.stringify(data.user))
               this.$router.push("./index");
             } else if (data.identity.code == 1004) {
-              let arr = ['32', '33', '34', '35', '36']
+              //财务人员
+              let arr = ['32', '33', '34', '52', '53']
               let name = username
               let mima = passowrd
               window.sessionStorage.setItem('data', JSON.stringify(arr))
@@ -112,7 +114,8 @@ export default {
               window.sessionStorage.setItem('mima', JSON.stringify(mima))
               this.$router.push("./index");
             } else if (data.identity.code == 1005) {
-              let arr = ['17', '20', '21','22','23','24']
+              //导出人员
+              let arr = ['17', '20', '21','22','23','24','35','36','37']
               let name = username
               let mima = passowrd
               window.sessionStorage.setItem('data', JSON.stringify(arr))
