@@ -43,7 +43,7 @@
 
     <!-- 表格 -->
     <div :class="$style.table">
-      <el-table ref="singleTable" :data="tableData" highlight-current-row style="width: 100%" v-loading="loading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading">
+      <el-table ref="singleTable" :data="tableData" highlight-current-row style="width: 100%" v-loading="loading">
         <el-table-column type="index" label="序号" width="150"></el-table-column>
         <el-table-column label="客户名称" sortable>
           <template slot-scope="scope">
@@ -64,28 +64,11 @@
         <el-table-column property="region" label="区域" sortable></el-table-column>
         <el-table-column label="操作" width="400" style="text-align:center">
           <template slot-scope="scope">
-            <el-button
-              size="mini"
-              type="success"
-              @click="handleDelete(scope.$index, scope.row)"
-            >重置密码</el-button>
-              <el-button
-              size="mini"
-              type="primary"
-              @click="khname(scope.$index, scope.row)"
-            >编辑</el-button>
-            <el-button
-              size="mini"
-              type="warning"
-              v-if="scope.row.status===1"
-              @click="Disable(scope.$index, scope.row)"
-            >停用</el-button>
-            <el-button
-              size="mini"
-              type="primary"
-              v-if="scope.row.status===2"
-              @click="Enable(scope.$index, scope.row)"
-            >启用</el-button>
+            <el-button size="mini" type="success" @click="handleDelete(scope.$index, scope.row)">重置密码</el-button>
+            <el-button size="mini" type="primary" @click="khname(scope.$index, scope.row)">编辑</el-button>
+            <el-button size="mini" type="warning" @click="empower(scope.$index, scope.row)">赋权</el-button>
+            <el-button size="mini" type="warning" v-if="scope.row.status===1" @click="Disable(scope.$index, scope.row)">停用</el-button>
+            <el-button size="mini" type="primary" v-if="scope.row.status===2" @click="Enable(scope.$index, scope.row)">启用</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -422,7 +405,7 @@ export default {
       stop3:false,
       stop4:false,
       stop5:false,
-
+      accountName:'',
       // value:'',
       xiaji:[],
       lx: [
@@ -678,6 +661,8 @@ export default {
     },
     search () {
       console.log(this.value)
+      this.pages = 0
+      this.currentPage4 = 1
       this.$http.get(`modules/merchant/list`, {
         params: {
           size: this.sizes,
@@ -686,7 +671,7 @@ export default {
           proxyType: this.value,
         }
       }).then(res => {
-        // console.log(res)
+        console.log('ss',this.pages)
         var { code, data } = res.data
         if (code === 1000) {
           this.tableData = data.content
@@ -793,15 +778,13 @@ export default {
           'id':this.formkhfull.id,//id
           'service':this.formkhfull.service,//客服
           'parentName':this.formkhfull.parentYB||this.formkhfull.parentSJ||this.formkhfull.parentHZ,
-          // 'parentId':this.formkhfull.parentSJ,
-          // 'parentId':this.formkhfull.parentHZ,
         }
       this.$http.post(`modules/merchant/update`,info).then(res => {
         var { code, data } = res.data
         if (code === 1000) {
           this.khfull = false
           this.getTotle()
-          this.$message({
+            this.$message({
               message: '修改成功',
               type: 'success'
             });
@@ -918,6 +901,39 @@ export default {
       // this.khfull = true
       // this.formkhfull = row
       // this.$router.push('/index/clientele.vue/clientelxq.vue')
+    },
+    //赋权
+    empower(index,row){
+      console.log(row)
+      this.$confirm('确认要赋权吗?, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$http.get('modules/merchant/updateauth', {
+              params:{
+                'accountName':row.accountName
+                // accountName:'qzcrrohrzez3'
+            }
+          }).then(res => {
+            var { code, data } = res.data
+            if (code === 1000) {
+              this.$message({
+                message: '已赋权',
+                type: 'success'
+              });
+            } else {
+              this.$message.error(res.data.message);
+            }
+          }).catch(function (error) {
+            console.log('错误信息' + error)
+          })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消'
+          });
+        });
     },
     queren () {
       this.$confirm('此操作将永久生效, 是否继续?', '提示', {

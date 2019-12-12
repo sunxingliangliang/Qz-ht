@@ -15,7 +15,7 @@
     </div>
     <!-- 表格 -->
     <div>
-      <el-table :data="tableData" border style="width: 100%" v-loading="loading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading">
+      <el-table :data="tableData" border style="width: 100%" v-loading="loading">
         <el-table-column prop="scencesName" label="名称"></el-table-column>
         <el-table-column label="地点">
           <template slot-scope="scope">
@@ -24,8 +24,8 @@
         </el-table-column>
         <el-table-column prop="address" label="数据类型">
           <template slot-scope="scope">
-            <span v-if="scope.row.type===1" >区域数据</span>
-            <span v-if="scope.row.type===2" >行业数据</span>
+            <span v-if="scope.row.type===1">区域数据</span>
+            <span v-if="scope.row.type===2">行业数据</span>
           </template>
         </el-table-column>
         <el-table-column prop="address" label="区域/行业类型">

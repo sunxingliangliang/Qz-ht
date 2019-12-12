@@ -44,7 +44,7 @@
     </div>
     <!-- 表格 -->
     <div>
-      <el-table :data="tableData" border style="width: 100%">
+      <el-table :data="tableData" border style="width: 100%" v-loading="loading">
         <el-table-column label="客户名称">
           <template slot-scope="scope">
             <span :class="$style.f_bh" @click="bh(scope.row)">{{ scope.row.name}}</span>
@@ -111,6 +111,7 @@ export default {
       input2: '',
       value1: '',
       value2: '',
+      loading:true,
       formkhfull: {},
       options: [
         {
@@ -190,7 +191,7 @@ export default {
       this.$http.post(`modules/financeAfter/customerList`, info).then(res => {
         var { code, data } = res.data
         if (code === 1000) {
-          // console.log(data)
+          this.loading = false
           this.tableData = data.content
           this.total = data.total
           let province = ''

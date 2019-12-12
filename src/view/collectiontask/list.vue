@@ -64,7 +64,7 @@
     </div>
     <!-- 表格 -->
     <div :class="$style.table">
-      <el-table ref="filterTable" :data="tableData" style="width: 100%">
+      <el-table ref="filterTable" :data="tableData" style="width: 100%" v-loading="loading">
         <el-table-column label="任务编号" width="180">
           <template slot-scope="scope">
             <span :class="$style.f_rwid" @click="handleEdit( scope.row)">{{scope.row.code}}</span>
@@ -127,6 +127,7 @@ export default {
       formLabelAlign: {
       },
       khfull: false,
+      loading: true,
       formkhfull: {},
        rstatus: [
         {
@@ -196,6 +197,7 @@ export default {
         var { code, data } = res.data
         if (code === 1000) {
           // console.log('ss',sessionStorage.getItem( "serviceId"))
+          this.loading = false
           this.tableData = data.content
           this.total = data.total
         } else if (code == 2001) {

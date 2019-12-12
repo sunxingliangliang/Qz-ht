@@ -495,7 +495,7 @@ export default {
       })
     },
     ditu (lbs) {
-        var str = lbs
+      var str = lbs
       // var str = '[[{\"lng\":120.360538,\"lat\":36.11021},{\"lng\":120.406244,\"lat\":36.11021},{\"lng\":120.408687,\"lat\":36.083497},{\"lng\":120.356082,\"lat\":36.078596},{\"lng\":120.347459,\"lat\":36.088397}]]'
       var strObj = JSON.parse(str)
       var points = strObj;

@@ -237,6 +237,7 @@ export default {
     handleClose (key, keyPath) {
     },
     tjpush () {
+      console.log('版本V3.0.0')
       this.$store.commit('mArry', this.editableTabs)
       this.tjtz()
     },

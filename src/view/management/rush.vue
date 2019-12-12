@@ -81,7 +81,7 @@
     </div>
     <!-- 表格 -->
     <div>
-      <el-table :data="tableData" border style="width: 100%">
+      <el-table :data="tableData" border style="width: 100%" v-loading="loading">
         <el-table-column
             label="序号"
             width="70px">
@@ -421,6 +421,7 @@ export default {
       serial: '',
       quantity: '',
       value1: '',
+      loading:true,
       value2: '',
       formkhfull: {},
       formkhfulls:{},
@@ -544,6 +545,7 @@ export default {
       }).then(res => {
         var { code, data } = res.data
         if (code === 1000) {
+          this.loading = false
           this.tableData = data.content
           this.total = data.total
         } else if (code == 2001) {
